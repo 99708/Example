@@ -1,0 +1,43 @@
+package com.bjsxt.dao;
+
+import java.util.List;
+
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Subject;
+import com.bjsxt.pojo.Teacher;
+
+public interface TeacherDao {
+	
+	/**
+	 * 获取TeacherList
+	 * 功能 : 遍历科目(任课科目下拉框)
+	 */
+	List<Subject> teacherSubList();
+	
+	/**
+	 * 三条件查询教师(任课科目，教师编号，任职日期)
+	 * 查询字段(教师姓名，性别，年龄，学历，授课专业，结婚状态)
+	 * hiredate (20181031)
+	 * 分页查询
+	 * @return
+	 */
+	List<Teacher> teacherSubJectsBySTH(String sname , int tid , String hiredate , int  pageStart, int pageSize);
+	
+	/**
+	 * 统计总页数
+	 * @param sname
+	 * @param tid
+	 * @param hiredate
+	 * @return
+	 */
+	int teacherCountBySTH(String sname , int tid , String hiredate);
+
+	List<Major> getMajor();//查找所有的major信息
+
+	int addTeacher(Teacher teacher);//添加老师信息
+
+	int getCount(int search, String searchText);//查询信息的数量
+
+	List<Teacher> getTeachers(int search, String searchText, int pageStart,
+			int pageSize);//按条件分页查询老师的信息
+}

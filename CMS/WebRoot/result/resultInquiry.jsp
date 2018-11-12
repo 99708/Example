@@ -1,0 +1,253 @@
+<%@ page language="java" isELIgnored="false" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'resultInquiry.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+ <link href="css/style2.css" rel="stylesheet" type="text/css" />
+		<link href="css/select.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		
+		<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+		<script type="text/javascript" src="js/select-ui.min.js"></script>
+	<!-- 	<script type="text/javascript" src="js/kindeditor.js"></script> -->
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+		    $(".select1").uedSelect({
+				width : 200		  
+			});
+			
+		});
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  $(".click").click(function(){
+			  $(".tip").fadeIn(200);
+			  });
+			  
+			  $(".tiptop a").click(function(){
+			  $(".tip").fadeOut(200);
+			});
+			
+			  $(".sure").click(function(){
+			  $(".tip").fadeOut(100);
+			});
+			
+			  $(".cancel").click(function(){
+			  $(".tip").fadeOut(100);
+			});
+			
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<div class="rightinfo">
+			<form id="formId">
+				<ul class="prosearch">
+					<li>
+						<label>查询：</label><i>查询条件</i>
+						<a>
+							<select id="selId" class="select1" name="type">
+								<c:if test="${sessionScope.rid == 1 }">
+									<option value="2">科目名</option>
+								</c:if>
+								<c:if test="${sessionScope.rid == 2 }">
+									<option value="1">姓名</option>
+									<option value="2">科目名</option>
+								</c:if>
+								<c:if test="${sessionScope.rid == 3 }">
+									<option value="1">姓名</option>
+									<option value="2">科目名</option>
+								</c:if>
+								
+							</select>
+						</a>
+						<a>
+							<input id="condId" name="cond" type="text" value="" class="scinput" style="width: 300"/>
+						</a>
+						<a>
+							<input id="selectId" type="button" class="sure" value="查询" />
+							
+						</a>
+						<a>
+							 <input id="exportId" type="button" class="scbtn2" value="导出"/>
+							
+						</a>
+						
+					</li>
+				</ul>
+			</form>
+			<div class="formtitle1"><span>成绩查询</span></div>
+
+			<table class="tablelist">
+				<thead>
+					<tr>
+						<th>
+							<input name="" type="checkbox" value="" checked="checked" />
+						</th>
+						<th>编号<i class="sort"><img src="img/px.gif" /></i></th>
+						<th>姓名</th>
+						<th>年级</th>
+						<th>班级</th>
+						<th>课程名</th>
+						<th>代课老师</th>
+						<th>成绩</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+
+			<div class="pagin">
+				<div class="message">共<i id="countId" class="blue">1256</i>条记录，当前显示第&nbsp;<i id="numId" class="blue">2&nbsp;</i>页</div>
+				<ul id="page" class="paginList">
+					<li id="up" class="paginItem"><span class="pagepre"></span></li>
+					<li id="num" class="paginItem"><a href="javascript:;">0</a></li>
+					<li id="next" class="paginItem"><span class="pagenxt"></span></li>
+				</ul>
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			$('.tablelist tbody tr:odd').addClass('odd');
+		</script>
+		<script type="text/javascript">
+			//页面加载完之后立刻发ajax分页
+			$(function(){
+				var pagenum1; //当前页
+				var pageSize1; //一页有多少个
+				var pageCount; //总页数
+				var count; //总的记录数
+				var dyDate;
+				
+				//页面刷新就显示第一页
+				page(1,4);
+				//上一页
+				$("#up").click(function(){
+					if(pagenum1 > 1){
+						page(pagenum1-1, pageSize1);
+					}else{
+						alert("已经是第一页了");
+					}
+				});
+				//下一页
+				$("#next").click(function(){
+					if(pagenum1 < pageCount){
+						page(pagenum1+1, pageSize1);
+					}else{
+						alert("已经是最后一页了");
+					}
+				});
+				//多条件查询
+				$("#selectId").click(function(){
+					$.ajax({
+						url:"scoreServlet.bjsxt",
+						data:"method=pageQueryByArgs&pageNum="+1+
+							"&pageSize="+pageSize1+"&type="+$("#selId").val()+"&cond="+$("#condId").val(),
+						dataType:"json",
+						type:"post",
+						success:function(rsDate){
+							appendtb(rsDate);
+						}
+					});
+				});
+				//导出
+				$("#exportId").click(function(){
+					$.ajax({
+						url:"scoreServlet.bjsxt",
+						data:"method=exportExcle&dyDate="+JSON.stringify(dyDate),
+						dataType:"json",
+						type:"post",
+						success:function(rsDate){
+							//处理响应结果
+							var str = rsDate == 1? "导出成功" : "导出失败";
+							alert(str);
+						}
+					});
+				});
+				
+				
+				
+				//封装公共部分
+				function page(pagenum, pageSize){
+					$.ajax({
+						url:"scoreServlet.bjsxt",
+						data:"method=pageQuery&pageNum="+pagenum+"&pageSize="+pageSize,
+						dataType:"json",
+						type:"post",
+						success:function(rsDate){
+							appendtb(rsDate);
+						}
+						
+					});
+				}
+				
+				function appendtb(rsDate){
+					dyDate = rsDate.ssList;
+					pagenum1 = rsDate.pageNum;
+					pageSize1 = rsDate.pageSize;
+					count = rsDate.count;
+					pageCount = rsDate.pageCount;
+					//遍历数据之前清空数据
+					var $tbody = $("tbody");
+					$tbody.empty();
+					//遍历数据
+					for(var i in rsDate.ssList){
+						var ss = rsDate.ssList[i];
+						//拼接数据
+						$tbody.append(
+							"<tr><td><input name='' type='checkbox' value='' /></td>"+
+							"<td>"+ss.sid+"</td>"+
+							"<td>"+ss.sname+"</td>"+
+							"<td>"+ss.grade+"</td>"+
+							"<td>"+ss.cname+"</td>"+
+							"<td>"+ss.subname+"</td>"+
+							"<td>"+ss.tname+"</td>"+
+							"<td>"+ss.score+"</td>"+
+							"</tr>"
+						);
+					}
+					
+					$("#countId").html(rsDate.count);
+					$("#numId").html(rsDate.pageNum+"&nbsp");
+					$("#num").empty();
+					//显示单个的页码
+					for(var i=0; i<pageCount; i++){
+						$("#num").append(
+							"<li id="+(i+1)+" class='paginItem'><a href='javascript:;''>"+(i+1)+"</a></li>"
+						);
+					}
+					//给单个的页码添加点击事件
+					$("#page a").click(function(){
+						page($(this).html(), pageSize1)
+					});
+					//添加当前页的样式
+					$("#"+pagenum1).attr("class", "paginItem current");
+				}
+				
+			});
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,162 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'resultStatisticsgrade.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+  		<link href="css/style2.css" rel="stylesheet" type="text/css" />
+		<link href="css/select.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+		<script type="text/javascript" src="js/select-ui.min.js"></script>
+		<script type="text/javascript" src="js/kindeditor.js"></script>
+		<script type="text/javascript" src="js/echarts.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(e) {
+			    $(".select1").uedSelect({
+					width : 350	
+				});
+			    changePie(1);
+			});
+			/* function changePie(val){
+				var dom = document.getElementById("container");
+				var myChart = echarts.init(dom);
+				var app = {};
+				option = null;
+				option = {
+				    title : {
+				        text: '某站点用户访问来源',
+				        subtext: '纯属虚构',
+				        x:'center'
+				    },
+				    tooltip : {
+				        trigger: 'item',
+				        formatter: "{a} <br/>{b} : {c} ({d}%)"
+				    },
+				    legend: {
+				        orient: 'vertical',
+				        left: 'left',
+				        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+				    },
+				    series : [
+				        {
+				            name: '访问来源',
+				            type: 'pie',
+				            radius : '55%',
+				            center: ['50%', '60%'],
+				            data:[
+				                {value:335, name:'直接访问'},
+				                {value:310, name:'邮件营销'},
+				                {value:234, name:'联盟广告'},
+				                {value:135, name:'视频广告'},
+				                {value:1548, name:'搜索引擎'}
+				            ],
+				            itemStyle: {
+				                emphasis: {
+				                    shadowBlur: 10,
+				                    shadowOffsetX: 0,
+				                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+				                }
+				            }
+				        }
+				    ]
+				};
+				if (option && typeof option === "object") {
+				    myChart.setOption(option, true);
+				}
+				
+			}; */
+		</script>
+	</head>
+
+	<body style="height: 100%; margin: 0">
+		<div style="height: 10%px; width: 500px;  margin:0px auto;">
+			<ul class="prosearch">
+				<li style="width: 480">
+					<label></label><i>请选择年级</i>
+					<a>
+						<select class="select1" id="gradeId" name="gradeId" onchange="changePie(this.value)">
+								<option value="1">一年级</option>
+								<option value="4">二年级</option>
+						</select>
+					</a>
+				</li>
+			</ul>	
+		</div>
+		<div id="container" style="height: 85%"></div>
+		<script type="text/javascript">
+			function changePie(gid){
+				var dom = document.getElementById("container");
+				var myChart = echarts.init(dom);
+				var app = {};
+				option = null;
+				$.ajax({
+			    	url:"scoreServlet.bjsxt",
+			    	data:"method=findScoreByGrade&gid="+gid,
+			    	dataType:"json",
+			    	type:"post",
+			    	success:function(rsData){
+			    		var sectArr = [];
+			    		//遍历返回结果
+			    		for(var i in rsData){
+			    			var total = rsData[i];
+			    			sectArr[i] = total.name;
+			    		}
+						option = {
+						    title : {
+						        text: '年级java成绩统计',
+						        x:'center'
+						    },
+						    tooltip : {
+						        trigger: 'item',
+						        formatter: "{a} <br/>{b} : {c} ({d}%)"
+						    },
+						    legend: {
+						        orient: 'vertical',
+						        left: 'left',
+						        data: sectArr
+						    },
+						    series : [
+						        {
+						            name: '年级java统计',
+						            type: 'pie',
+						            radius : '55%',
+						            center: ['50%', '60%'],
+						            data:rsData,
+						            itemStyle: {
+						                emphasis: {
+						                    shadowBlur: 10,
+						                    shadowOffsetX: 0,
+						                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+						                }
+						            }
+						        }
+						    ]
+						};
+						if (option && typeof option === "object") {
+						    myChart.setOption(option, true);
+						}
+			    	}
+			    });
+			}
+			
+		</script>
+			       
+	</body>
+</html>

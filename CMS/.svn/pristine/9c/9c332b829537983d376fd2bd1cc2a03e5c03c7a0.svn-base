@@ -1,0 +1,7 @@
+package com.bjsxt.dao.impl;
+
+import com.bjsxt.dao.StudentDao;
+
+public class StudentDaoImpl implements StudentDao{
+
+}

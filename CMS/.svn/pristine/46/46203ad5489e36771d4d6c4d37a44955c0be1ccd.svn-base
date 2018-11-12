@@ -1,0 +1,143 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<title>学生登记查询</title>
+<meta charset="UTF-8" />
+</head>
+
+<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+		
+		$(function(){
+			
+			$("#add").click(function(){
+				$("#showTable").append(
+					"<tr id='delTr'>"+
+					"<td>清洁工</td>"+
+					"<td>人民大食堂</td>"+
+					"<td>1000.00</td>"+
+					"<td>火星</td>"+
+					"<td>2018/10/07</td>"+
+					"<td>"+
+						"<a href='' id='' name=''>删除</a>"+
+					"</td>"+
+				"</tr>"
+				);
+			})
+			
+			$("a[name = delWho]").click(function(){
+				$(this).parent().parent().remove();
+			})
+			
+		})
+		
+		
+		
+	</script>
+
+<style type="text/css">
+
+/*a标签全局CSS*/
+a {
+	text-decoration: none;
+	color: chocolate;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: red;
+}
+
+/*table标签全局CSS*/
+table {
+	text-align: center;
+	border-collapse: collapse;
+}
+
+td {
+	width: 110px;
+	height: 8px;
+	font-size: 10px;
+	font-weight: bold;
+}
+</style>
+
+
+
+<body>
+
+	<div id="showDiv"
+		style="border: solid 0px; border-color: gray; height: 840px;width: 800px;margin: auto;">
+		<span id="showSpan" style="float: right; margin-right:36px;"> <br />
+			<div id="serch" style="float: left;">
+				查询字段 : <select style="height: 22px;">
+					<option value="1">学生编号</option>
+					<option value="2">学生班级</option>
+			</div> <input type="text" name="serchText" id="serchText" value="" /> <input
+			type="button" name="serchButton" id="serchButton" value="查询" />
+		</span><br /> <br /> <br />
+		<table align="center" border="1px" cellspacing="" cellpadding="5px"
+			id="showTable">
+			<tr>
+				<td>学生编号</td>
+				<td>学生姓名</td>
+				<td>班级编号</td>
+				<td>出生日期</td>
+				<td>入学日期</td>
+				<td>录取分数</td>
+				<td>经办人</td>
+			</tr>
+
+			<tr id="delTr">
+				<td>01010101</td>
+				<td>乔治浩</td>
+				<td>666666</td>
+				<td>2018/10/07</td>
+				<td>2018/10/07</td>
+				<td>100.0</td>
+				<td>张老师</td>
+			</tr>
+			<tr id="delTr">
+				<td>01010101</td>
+				<td>薛永强</td>
+				<td>666666</td>
+				<td>2018/10/07</td>
+				<td>2018/10/07</td>
+				<td>100.0</td>
+				<td>张老师</td>
+			</tr>
+			<tr id="delTr">
+				<td>01010101</td>
+				<td>黄皓宇</td>
+				<td>666666</td>
+				<td>2018/10/07</td>
+				<td>2018/10/07</td>
+				<td>100.0</td>
+				<td>张老师</td>
+			</tr>
+			<tr id="delTr">
+				<td>01010101</td>
+				<td>贺彬</td>
+				<td>666666</td>
+				<td>2018/10/07</td>
+				<td>2018/10/07</td>
+				<td>100.0</td>
+				<td>张老师</td>
+			</tr>
+		</table>
+		<p style="color: steelblue;"></p>
+	</div>
+
+
+</body>
+</html>

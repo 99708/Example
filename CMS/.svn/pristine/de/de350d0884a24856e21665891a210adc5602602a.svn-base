@@ -1,0 +1,27 @@
+package com.bjsxt.test;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+
+import com.bjsxt.dao.TeacherDao;
+import com.bjsxt.dao.impl.TeacherDaoImpl;
+import com.bjsxt.pojo.Teacher;
+import com.bjsxt.service.TeacherService;
+import com.bjsxt.service.impl.TeacherServiceImpl;
+
+public class Test {
+	public static void main(String[] args) {
+		TeacherDao td = new TeacherDaoImpl();
+		TeacherService ts = new TeacherServiceImpl();
+		
+		//Date日期转换
+		Date d = new Date();
+		String formatDate = DateFormat.getDateInstance().format(d);
+		String hiredate = formatDate.replace("-", "");
+		System.out.println(hiredate);
+		
+//		List<Teacher> tl = ts.findTeacherBySTH("Java", 1, "20181019");
+//		System.out.println(tl);
+	}
+}

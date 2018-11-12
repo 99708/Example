@@ -1,0 +1,69 @@
+package com.bjsxt.dao;
+
+import java.util.List;
+
+import com.bjsxt.pojo.Student;
+import com.bjsxt.pojo.Subject;
+import com.bjsxt.vo.ScoreVo;
+import com.bjsxt.vo.StudentScoreVo;
+
+public interface ScoreDao {
+	/**
+	 * 根据老师的id获取所带的课程
+	 * @param tid
+	 * @return
+	 */
+	List<Subject> getSubjectByTid(int tid);
+	/**
+	 * 获取选择tid老师所带的subid课程的学生
+	 * @param subid
+	 * @param tid
+	 * @return
+	 */
+	List<Student> getStudentBySubid(int subid, int tid);
+	/**
+	 * 更新学生成绩信息
+	 * @param sid
+	 * @param subid
+	 * @param score 
+	 * @return
+	 */
+	int updateScoreByid(int sid, int subid, int score);
+	/**
+	 * 分页查询学生成绩
+	 * @param pageSize 
+	 * @param pageStart 
+	 * @return
+	 */
+	List<StudentScoreVo> pageQuery(int pageStart, int pageSize);
+	
+	/**
+	 * 班级成绩统计
+	 * @param cid
+	 * @return
+	 */
+	List<ScoreVo> getScoreByClasses(int cid);
+	/**
+	 * 
+	 * @param gid
+	 * @param subid
+	 * @return
+	 */
+	int getScoreByGrade(int gid, int min, int max);
+	/**
+	 * 查询总的记录数
+	 * @return
+	 */
+	int getpageCount();
+	/**
+	 * 年级统计之前查询所选课程
+	 * @param gid
+	 * @return
+	 */
+	List<Subject>beforefindScoreByGrade(int gid);
+	/**
+	 * 带条件的分页查询
+	 * @return
+	 */
+	List<StudentScoreVo> pageQueryByArgs(int pageStart, int pageSize, int type, String cond);
+}

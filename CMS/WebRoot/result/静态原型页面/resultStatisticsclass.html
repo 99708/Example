@@ -1,0 +1,140 @@
+<html>
+	<head>
+		<title>班级成绩统计</title>
+		<meta charset="UTF-8"/>
+	</head>
+	
+	<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			$("#add").click(function(){
+				$("#showTable").append(
+					"<tr id='delTr'>"+
+					"<td>清洁工</td>"+
+					"<td>人民大食堂</td>"+
+					"<td>1000.00</td>"+
+					"<td>火星</td>"+
+					"<td>2018/10/07</td>"+
+					"<td>"+
+						"<a href='' id='' name=''>删除</a>"+
+					"</td>"+
+				"</tr>"
+				);
+			})
+			
+			$("a[name = delWho]").click(function(){
+				$(this).parent().parent().remove();
+			})
+			
+		})
+		
+		
+		
+	</script>
+	
+	<style type="text/css">
+		
+		/*a标签全局CSS*/
+		a{
+			text-decoration:none;
+			color: chocolate;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		a:hover{
+			text-decoration: underline;
+			color: red;
+		}
+		
+		/*table标签全局CSS*/
+		table{
+			text-align: center;
+			border-collapse:collapse;
+		}
+		td{
+			width: 110px;
+			height: 8px;
+			font-size: 10px;
+			font-weight: bold;
+		}
+		
+	</style>
+	
+	
+	
+	<body>
+		
+		<div id="showDiv" style="border: solid 0px; border-color: gray; height: 840px;width: 800px;margin: auto;">
+			<span id="showSpan" style="float: right; margin-right:36px;">
+				<br />
+                <div id="serch" style="float: left;">
+                	班级 : 
+                	<select style="height: 22px;">
+                        <option>三年二班</option>
+                        <option>四年三班</option>
+                        <option>五年四班</option>
+                    </select>
+                </div>
+				考试类别 ：<input type="text" name="serchText" id="serchText" value="" />
+				考试日期 ：<input type="date" name="serchText" id="serchText" value="" />
+				<input type="button" name="serchButton" id="serchButton" value="查询" />
+			</span><br /><br /><br />
+			<table align="center" border="1px" cellspacing="" cellpadding="5px" id="showTable">
+				<tr>
+					<td>学生姓名</td>
+					<td>考试类别</td>
+					<td>考试日期</td>
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>物理</td>
+					<td>化学</td>
+					<td>政治</td>
+					<td>总分数</td>
+				</tr>
+				
+				<tr id="delTr">
+					<td>高淇</td>
+					<td>模拟考试</td>
+					<td>2018/09/08</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>600.00</td>
+				</tr>
+				<tr id="delTr">
+					<td>刘凯丽</td>
+					<td>模拟考试</td>
+					<td>2018/09/08</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>600.00</td>
+				</tr>
+				<tr id="delTr">
+					<td>张宇鹏</td>
+					<td>模拟考试</td>
+					<td>2018/09/08</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>100.00</td>
+					<td>600.00</td>
+				</tr>
+			</table>
+			<p style="color: steelblue;"></p>
+		</div>
+		
+		
+	</body>
+</html>

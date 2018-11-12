@@ -1,0 +1,47 @@
+package com.bjsxt.servlet;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bjsxt.pojo.Classes;
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Student;
+import com.bjsxt.service.StudentService;
+import com.bjsxt.service.impl.StudentServiceImpl;
+import com.google.gson.Gson;
+
+
+public class StudentServlet extends BaseServlet {
+
+	private static final long serialVersionUID = 1L;
+	private StudentService studentService = new StudentServiceImpl();
+	
+	public void findMyInfo(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		int sid = 1;
+		Student student = studentService.findMyInfoBySid(sid);
+		System.out.println(student);
+		request.setAttribute("student", student);
+		request.getRequestDispatcher("/archives/studentInfo.jsp").forward(request, response);
+	}
+	
+	public void findClasses(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		List<Classes> classesList = studentService.findAllClasses();
+		request.setAttribute("classesList", classesList);
+		request.getRequestDispatcher("/archives/studentReg.jsp").forward(request, response);
+	}
+	
+	public void findMajor(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		int cid = Integer.valueOf(request.getParameter("cid"));
+		int mid = studentService.findMidByCid(cid);
+		Major major = studentService.findMajorByMid(mid);
+		System.out.println(major);
+		Gson gson = new Gson();
+		String json = gson.toJson(major);
+		response.setContentType("text/json");
+		response.getWriter().println(json);
+	}
+}

@@ -1,0 +1,19 @@
+package com.bjsxt.service;
+
+import java.util.List;
+
+import com.bjsxt.pojo.Classes;
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Student;
+
+public interface StudentService {
+	
+	public List<Classes> findAllClasses();//查询所有班级信息
+
+	public Major findMajorByMid(int mid);//根据mid查询major信息
+
+	public Student findMyInfoBySid(int sid);//根据sid查询学生信息
+
+	public int findMidByCid(int cid);//根据cid查mid
+
+}

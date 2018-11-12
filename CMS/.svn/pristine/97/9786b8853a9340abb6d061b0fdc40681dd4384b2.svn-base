@@ -1,0 +1,64 @@
+package com.bjsxt.service.impl;
+
+import java.util.List;
+
+import com.bjsxt.dao.StudentDao;
+import com.bjsxt.dao.impl.StudentDaoImpl;
+import com.bjsxt.pojo.Classes;
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Student;
+import com.bjsxt.service.StudentService;
+
+public class StudentServiceImpl implements StudentService{
+	
+	private StudentDao studentDao = new StudentDaoImpl();
+	
+	/**
+	 * 查询所有班级信息
+	 */
+	@Override
+	public List<Classes> findAllClasses() {
+		return studentDao.getAllClasses();
+	}
+	
+	/**
+	 * 根据mid查询major信息
+	 */
+	@Override
+	public Major findMajorByMid(int mid) {
+		return studentDao.getMajorByMid(mid);
+	}
+
+	/**
+	 * 根据sid查询学生信息
+	 */
+	@Override
+	public Student findMyInfoBySid(int sid) {
+		return studentDao.getMyInfoBySid(sid);
+	}
+
+	/**
+	 * 根据cid查mid
+	 */
+	@Override
+	public int findMidByCid(int cid) {
+		return studentDao.getMidByCid(cid);
+	}
+
+	/**
+	 * 根据cid查cname
+	 */
+	@Override
+	public String findCnameByCid(int cid) {
+		return studentDao.getCnameByCid(cid);
+	}
+	
+	/**
+	 * 添加学生信息
+	 */
+	@Override
+	public int addStudent(Student student) {
+		return studentDao.addStudent(student);
+	}
+
+}

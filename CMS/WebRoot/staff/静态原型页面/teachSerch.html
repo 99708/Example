@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<title>任课教师查询</title>
+		<meta charset="UTF-8"/>
+	</head>
+	
+	<script src="js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			$("#add").click(function(){
+				$("#showTable").append(
+					"<tr id='delTr'>"+
+					"<td>清洁工</td>"+
+					"<td>人民大食堂</td>"+
+					"<td>1000.00</td>"+
+					"<td>火星</td>"+
+					"<td>2018/10/07</td>"+
+					"<td>"+
+						"<a href='' id='' name=''>删除</a>"+
+					"</td>"+
+				"</tr>"
+				);
+			})
+			
+			$("a[name = delWho]").click(function(){
+				$(this).parent().parent().remove();
+			})
+			
+		})
+		
+		
+		
+	</script>
+	
+	<style type="text/css">
+		
+		/*a标签全局CSS*/
+		a{
+			text-decoration:none;
+			color: chocolate;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		a:hover{
+			text-decoration: underline;
+			color: red;
+		}
+		
+		/*table标签全局CSS*/
+		table{
+			text-align: center;
+			border-collapse:collapse;
+		}
+		td{
+			width: 110px;
+			height: 8px;
+			font-size: 10px;
+			font-weight: bold;
+		}
+		
+	</style>
+	
+	
+	
+	<body>
+		
+		<div id="showDiv" style="border: solid 0px; border-color: gray; height: 840px;width: 800px;margin: auto;">
+			<span id="showSpan" style="float: right; margin-right:36px;">
+				<br />
+                <div id="serch" style="float: left;">
+                	请输入查询条件 : 
+                	<select style="height: 22px;">
+                        <option>教师姓名</option>
+                        <option>任职科目</option>
+                    </select>
+                </div>
+				<input type="text" name="serchText" id="serchText" value="" />
+				<input type="button" name="serchButton" id="serchButton" value="提交" />
+				<input type="checkbox" name="" id="" value="" />查询历史记录
+			</span><br /><br /><br />
+			<table align="center" border="1px" cellspacing="" cellpadding="5px" id="showTable">
+				<tr>
+					<td>教师编号</td>
+					<td>教师姓名</td>
+					<td>教师性别</td>
+					<td>任职日期 </td>
+					<td>任职科目</td>
+					<td>维护</td>
+				</tr>
+				
+				<tr id="delTr">
+					<td>0101</td>
+					<td>张老师</td>
+					<td>男</td>
+					<td>2018/10/07</td>
+					<td>数学</td>
+					<td>
+						<a href="#" id="delWho" name="delWho">离职</a>
+					</td>
+				</tr>
+				<tr id="delTr">
+					<td>0101</td>
+					<td>张老师</td>
+					<td>男</td>
+					<td>2018/10/07</td>
+					<td>数学</td>
+					<td>
+						<a href="#" id="delWho" name="delWho">离职</a>
+					</td>
+				</tr>
+				<tr id="delTr">
+					<td>0101</td>
+					<td>张老师</td>
+					<td>男</td>
+					<td>2018/10/07</td>
+					<td>数学</td>
+					<td>
+						<a href="#" id="delWho" name="delWho">离职</a>
+					</td>
+				</tr>
+			</table>
+			<p style="color: steelblue;"></p>
+		</div>
+		
+		
+	</body>
+</html>

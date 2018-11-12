@@ -1,0 +1,33 @@
+基本信息(system) ： 
+login ： 登录页面（loginButton点击事件 跳转main.html）
+main ： 头信息、主菜单（含有用户名信息、退出功能）
+nav ： 左边的选项卡（subnav中ul--li标签中含有各个模块跳转页面）
+
+模块分类（nav）：
+	档案管理(archives)
+	studentInfo	学生基本信息
+	studentReg	学生入校登记
+	studentDate	学生信息维护
+	studentSerch	学生登记查询
+	teacherInfo	教师基本信息
+	teacherDate	教师信息维护
+	
+	成绩管理(result)
+	resultInput	成绩录入
+	resultInquiry	成绩查询
+	resultStatisticsclass	班级成绩统计
+	resultStatisticsgrade	年级成绩统计
+
+	教职工管理(staff)
+	teachCurriculum	教职任课
+	teachDirector	任课主任
+	teachSerch	任课教师查询
+	teachBoss		班主任查询
+
+	用户维护
+	userRegister	用户注册
+	userSerch		用户查询
+
+	系统信息
+	version		版权声明
+	technology	技术支持

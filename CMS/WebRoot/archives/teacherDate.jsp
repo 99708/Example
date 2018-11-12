@@ -1,0 +1,203 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+</head>
+
+<style type="text/css">
+
+/*a标签全局CSS*/
+a {
+	text-decoration: none;
+	color: chocolate;
+	font-size: 16px;
+	font-weight: bold;
+}  
+
+/*table标签全局CSS*/
+table {
+	text-align: center;
+	border-collapse: collapse;
+}
+ul li:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+</style>
+
+<body>
+
+	<div id="showDiv"
+		style="border: solid 0px; border-color: gray; height: 840px;width: 800px;margin: auto;">
+		<span id="showSpan" style="float: right; margin-right:36px;"> <br />
+			<div id="serch" style="float: left;">
+				查询条件 : <select id="search" name="search" style="height: 22px;">
+					<option value="0">全部查询</option>
+					<option value="1">教师姓名</option>
+					<option value="2">教师编号</option>
+					<option value="3">身份证号</option>
+				</select>
+			</div> 
+			<input type="text" name="searchText" id="searchText" value="" /> 
+			<input type="button" name="searchButton" id="searchButton" value="查询" />
+			<div id="think" style="opacity: 0.8;background-color: #F1F1F1;border: 1px;width: 150px;height: 150px;position:absolute;right: 545px;display: none;">
+				<ul id="thinkchild" style="list-style: none; text-align: center;">
+					<li value="1111" onmouseover='thinkClick(this)'>123</li>
+				</ul>
+			</div>
+			
+		</span><br />
+		<br />
+		<br />
+		<table align="center" border="1px" cellspacing="" cellpadding="5px"
+			id="showTable">
+			<thead>
+				<tr>
+					<td width="200px">教师编号</td>
+					<td width="200px">教师姓名</td>
+					<td width="200px">教师性别</td>
+					<td width="550px">身份证号</td>
+					<td width="200px">授课专业</td>
+					<td width="200px">维护</td>
+				</tr>
+			</thead>
+			<tbody id="tb">
+
+			</tbody>
+		</table>
+		<div style="margin-top: 15px" align="center" >
+			<a id="up" href="javaScript:void(0)">上一页</a>&nbsp;&nbsp;
+		   	<span id="nums"></span>&nbsp;&nbsp;
+		    <a id="next"  href="javaScript:void(0)">下一页</a>
+		</div>
+		<p style="color: steelblue;"></p>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//声明变量记录当前的页码数
+	    		var pageNum;
+	    		//声明变量记录总的页码数
+	    		var pages;
+	    		var search = $("#search").val()
+				var searchText = $("#searchText").val();
+				getData(1,5,search,searchText);
+				
+				$("#up").click(function(){
+					search = $("#search").val()
+				    searchText = $("#searchText").val();
+					if(pageNum>1){
+    					getData(pageNum-1,5,search,searchText);
+    				}else{
+    					alert("已经是第一页");
+    				}
+				})
+				$("#next").click(function(){
+					search = $("#search").val()
+				    searchText = $("#searchText").val();
+					if(pageNum<pages){
+    					getData(pageNum+1,5,search,searchText);
+    				}else{
+    					alert("已经是第一页");
+    				}
+				})
+				
+				$("#searchButton").click(function(){
+					search = $("#search").val()
+				    searchText = $("#searchText").val();
+					getData(1,5,search,searchText);
+				})	
+				//封装ajax分页功能函数
+		    	function getData(pn,ps,search,searchText){
+	    			 $.get("teacherServlet.bjsxt?method=findTeachers",{num:pn,pageSize:ps,search:search,searchText:searchText},function(data){
+	    				//使用eval方法将数据转换为js对象
+	    					eval("var obj="+data);
+	    				//处理响应数据 ,把用户数据填充到表格中
+	    					//获取当次请求的页码数
+	    					 pageNum=obj.num;
+	    					 pages=obj.pages;
+	    					//获取表格对象
+	    						var tb=$("#tb");
+	    						tb.empty();
+	    					//遍历，填充
+	    						for(var i=0;i<obj.ts.length;i++){
+	    							tb.append("<tr>"+
+	    					    			"<td>"+obj.ts[i].tid+"</td>"+
+	    					    			"<td>"+obj.ts[i].tname+"</td>"+
+	    					    			"<td>"+obj.ts[i].sex+"</td>"+
+	    					    			"<td>"+obj.ts[i].idcard+"</td>"+
+	    					    			"<td>"+obj.ts[i].major.mname+"</td>"+
+	    					    			"<td><a href='javaScript:void(0)'>维护</a></td>"+
+	    					    		"</tr>");
+	    						}
+	    					//创建页面的页码显示
+	    						//获取Span对象
+	    						var span=$("#nums");
+	    						//清空
+	    						span.empty();
+	    						//填充页码
+	    						for(var i=1;i<=pages;i++){
+	    							span.append("<a id='"+i+"' href='javaScript:void(0)'>"+i+"</a>");	    							
+	    						}
+	    					//给页码超链接添加	
+	    						search = $("#search").val()
+				   				searchText = $("#searchText").val();
+	    						$("#nums a").click(function(){
+	    							getData($(this).html(), 5,search,searchText);
+	    						})
+	    					//当前页变色
+	    						$("#"+pageNum).css("color","red");
+	    						
+	    						$("#tb a").click(function(){
+									var tid = $(this).parent().siblings().first().html();
+									window.location.href="teacherServlet.bjsxt?method=findTeacher&tid="+tid;
+								})
+	    			}) 
+    			}
+    			$("#searchText").keyup(function(){
+    				var tc = $("#thinkchild");    	
+    				tc.empty();			
+    				$("#think").css("display","inherit");
+    				var searchText = $("#searchText").val().trim();
+    				var search = $("#search").val();
+    				if(searchText!=""){
+    					$.ajax({
+    					url:"teacherServlet.bjsxt",
+    					data:"method=thinkFind&search="+search+"&searchText="+searchText,
+    					type:"post",
+    					dataType:"json",
+    					success:function(rsData){
+    						for(var i=0;i<rsData.length;i++){
+    							tc.append("<li class='lili' style='position:relative;left:-40px;top:-15px' value='"+rsData[i]+"'>"+rsData[i]+"</li>");
+							    var regExp = new RegExp(searchText, "g");//创建正则表达式，g表示全局的，如果不用g，则查找到第一个就不会继续向下查找了；  
+							    $(".lili").each(function()
+							    {  
+							        var html = $(this).html();  
+							        var newHtml = html.replace(regExp, "<span style='color:red' >"+searchText+"</span>");//将找到的关键字替换，加上highlight属性；  						  
+							        $(this).html(newHtml);  
+							  
+							    });  
+    							}
+    						}
+    					})
+    				}
+    				
+    			})
+    			
+    			$("#searchText").blur(function(){
+    				$("#think").css("display","none");    				
+    			})
+    			
+    			$("#thinkchild").on("mouseover","li",function(){
+    				$("#searchText").val(this.textContent);
+    			})    			
+		})
+	</script>
+</body>
+</html>

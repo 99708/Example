@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<!-- 配置过滤器 -->
+	<filter>
+		<filter-name>encodFilter</filter-name>
+		<filter-class>com.xyq.filter.EncodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodFilter</filter-name>
+		<url-pattern>*.servlet</url-pattern>
+	</filter-mapping>
+  <servlet>
+    <servlet-name>DeptServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.DeptServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.TestServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EmpServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.EmpServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PositionServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.PositionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DutyServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.DutyServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ExpenseServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.ExpenseServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>IncomeServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.IncomeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PaymentServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.xyq.servlet.PaymentServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>DeptServlet</servlet-name>
+    <url-pattern>/deptServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/testServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EmpServlet</servlet-name>
+    <url-pattern>/empServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PositionServlet</servlet-name>
+    <url-pattern>/positionServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/loginServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DutyServlet</servlet-name>
+    <url-pattern>/dutyServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExpenseServlet</servlet-name>
+    <url-pattern>/expenseServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IncomeServlet</servlet-name>
+    <url-pattern>/incomeServlet.servlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PaymentServlet</servlet-name>
+    <url-pattern>/paymentServlet.servlet</url-pattern>
+  </servlet-mapping>
+
+</web-app>

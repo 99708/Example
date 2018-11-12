@@ -1,0 +1,193 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'resultInquiry.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+ <link href="css/style2.css" rel="stylesheet" type="text/css" />
+		<link href="css/select.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		
+		<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+		<script type="text/javascript" src="js/select-ui.min.js"></script>
+		<script type="text/javascript" src="js/kindeditor.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+		    $(".select1").uedSelect({
+				width : 200		  
+			});
+			
+		});
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  $(".click").click(function(){
+			  $(".tip").fadeIn(200);
+			  });
+			  
+			  $(".tiptop a").click(function(){
+			  $(".tip").fadeOut(200);
+			});
+			
+			  $(".sure").click(function(){
+			  $(".tip").fadeOut(100);
+			});
+			
+			  $(".cancel").click(function(){
+			  $(".tip").fadeOut(100);
+			});
+			
+			});
+		</script>
+
+	</head>
+
+	<body>
+
+
+		<div class="rightinfo">
+
+			<ul class="prosearch">
+				<li>
+					<label>查询：</label><i>用户名</i>
+					<a>
+						<input name="" type="text" class="scinput" />
+					</a><i>所属部门</i>
+					<a>
+						<select class="select1">
+								<option>总裁办</option>
+								<option>教学部</option>
+								<option>咨询部</option>
+								<option>教务部</option>
+							</select>
+					</a>
+					<i>考勤时间</i>
+					<a>
+						<input name="" type="text" class="scinput" />
+					</a>	
+					<a>
+						<input name="" type="button" class="sure" value="查询" />
+						
+					</a>
+					<a>
+						 <input name="" type="button" class="scbtn2" value="导出"/>
+						
+					</a>
+					
+				</li>
+				
+					
+			</ul>
+
+			<div class="formtitle1"><span>考勤管理</span></div>
+
+			<table class="tablelist">
+				<thead>
+					<tr>
+						<th>
+							<input name="" type="checkbox" value="" checked="checked" />
+						</th>
+						<th>用户名<i class="sort"><img src="img/px.gif" /></i></th>
+						<th>真实姓名</th>
+						<th>所属部门</th>
+						<th>出勤日期</th>
+						<th>签到时间</th>
+						<th>签退时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input name="" type="checkbox" value="" />
+						</td>
+						<td>gaoqi</td>
+						<td>高淇</td>
+						<td>总裁办</td>
+						<td>2007-10-1</td>
+						<td>08:50</td>
+						<td>18:05</td>
+					</tr>
+
+					<tr>
+						<td>
+							<input name="" type="checkbox" value="" />
+						</td>
+						<td>liukaili</td>
+						<td>刘凯立</td>					
+						<td>教学部</td>
+							<td>2012-5-1</td>
+						<td>08:40</td>
+						<td>18:03</td>
+										
+					</tr>
+
+					<tr>
+						<td>
+							<input name="" type="checkbox" value="" />
+						</td>
+						<td>jiayanshuang</td>
+						<td>贾颜双</td>
+						<td>咨询部</td>
+						<td>2010-6-1</td>
+						<td>08:00</td>
+						<td>19:05</td>
+											
+					</tr>
+
+					<tr>
+						<td>
+							<input name="" type="checkbox" value="" />
+						</td>
+						<td>gaojiazhi</td>
+						<td>高佳志</td>
+						<td>教学部</td>
+						<td>2013-8-1</td>
+						<td>08:20</td>
+						<td>18:00</td>
+										
+					</tr>
+
+				</tbody>
+			</table>
+
+			<div class="pagin">
+				<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+				<ul class="paginList">
+					<li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+					<li class="paginItem"><a href="javascript:;">1</a></li>
+					<li class="paginItem current"><a href="javascript:;">2</a></li>
+					<li class="paginItem"><a href="javascript:;">3</a></li>
+					<li class="paginItem"><a href="javascript:;">4</a></li>
+					<li class="paginItem"><a href="javascript:;">5</a></li>
+					<li class="paginItem more"><a href="javascript:;">...</a></li>
+					<li class="paginItem"><a href="javascript:;">10</a></li>
+					<li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			$('.tablelist tbody tr:odd').addClass('odd');
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,224 @@
+package com.bjsxt.servlet;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Subject;
+import com.bjsxt.pojo.Teacher;
+import com.bjsxt.pojo.TeacherPage;
+import com.bjsxt.service.TeacherService;
+import com.bjsxt.service.impl.TeacherServiceImpl;
+import com.bjsxt.util.Date2str;
+import com.google.gson.Gson;
+
+public class TeacherServlet extends BaseServlet {
+	
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 遍历科目(任课科目下拉框)
+	 * 	请求转发到 staff/teachCurriculum.jsp页面
+	 * @param req
+	 * @param resp
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	public void teacherSubList(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+		//调用Service获取数据
+		TeacherService ts = new TeacherServiceImpl();
+		List<Subject> fts = ts.findTeacherSub();
+		
+		//将list请求转发到staff/teachCurriculum.jsp页面
+		req.setAttribute("fts", fts);
+		req.getRequestDispatcher("/staff/teachCurriculum.jsp").forward(req, resp);
+		
+	}
+	
+	/**
+	 * 三条件查询教师(任课科目，教师编号，任职日期)
+	 * 查询字段(教师姓名，性别，年龄，学历，授课专业，结婚状态)
+	 */
+	public void teacherSubBySTH(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		//获取请求信息
+		int num = Integer.parseInt(req.getParameter("num"));
+		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+		
+		//教师编号
+		int tid = 0;
+		String tidStr = req.getParameter("teacherid");
+		if(tidStr != null && !"".equals(tidStr)){
+			tid = Integer.parseInt(tidStr);
+		}
+		
+		//任课科目
+		String sname = req.getParameter("subject");
+		
+		//任职日期
+		String hiredate = null;
+		String hiredateStr = req.getParameter("hiredate");
+		if(hiredateStr != null && !"".equals(hiredateStr)){
+			hiredate = hiredateStr.replace("-", "");
+		}
+		
+		System.out.println("tid : " + tid + " sname : " + sname + " hiredate : " + hiredate );
+		System.out.println("num : " + num + "pageSize : " + pageSize);
+		
+		//调用Service层获取数据 
+		TeacherService ts = new TeacherServiceImpl();
+		TeacherPage tp = ts.findTeacherBySTH(sname , tid , hiredateStr , num , pageSize);
+		
+		System.out.println(tp);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(tp);
+		
+		resp.getWriter().println(json);
+	}
+	
+	/**
+	 * 寻找所有的专业信息，用来接收ajax请求
+	 * @param req
+	 * @param resp
+	 * @throws IOException 
+	 */
+	public void findMajor(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		TeacherService ts = new TeacherServiceImpl();
+		List<Major> majorList = ts.findMajor();
+		response.getWriter().println(new Gson().toJson(majorList));
+	}
+	
+	/**
+	 * 添加老师信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void addTeacher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String tname = request.getParameter("tname");
+		int age = Integer.valueOf(request.getParameter("age"));
+		String sex = request.getParameter("sex");
+		String marry = request.getParameter("marry");
+		String party = request.getParameter("party");
+		String nation = request.getParameter("naton");
+		String education = request.getParameter("education");
+		Date birthdate = Date2str.str2date(request.getParameter("birthdate"));
+		String idcard = request.getParameter("idcard");
+		String phone = request.getParameter("phone");
+		Date hiredate = Date2str.str2date(request.getParameter("hiredate"));
+		int mid = Integer.valueOf(request.getParameter("mid"));
+		String desc = request.getParameter("desc");
+		String pwd = "bjsxt";
+		int rid = 2;
+		Major major = new Major();
+		major.setMid(mid);
+		Teacher teacher = new Teacher(pwd, rid, major, tname, sex, age, nation, party, education, marry, birthdate, idcard, phone, hiredate, desc);
+		TeacherService ts = new TeacherServiceImpl();
+		int num = ts.addTeacher(teacher);
+		if(num>0){
+			request.getRequestDispatcher("/archives/teacherDate.jsp").forward(request, response);
+		}else{
+			request.setAttribute("error","添加失败");
+			request.getRequestDispatcher("/archives/teacherSearch.jsp").forward(request, response);
+		}
+	}
+	
+	/**
+	 * 查找所有老师信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void findTeachers(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		int search = Integer.valueOf(request.getParameter("search"));
+		String searchText = request.getParameter("searchText");
+		int num=Integer.parseInt(request.getParameter("num"));
+		int pageSize=Integer.parseInt(request.getParameter("pageSize"));
+		TeacherService ts = new TeacherServiceImpl();
+		TeacherPage tp = ts.findTeachers(search,searchText,num,pageSize);
+		response.getWriter().println(new Gson().toJson(tp));
+	}
+	
+	/**
+	 * 查找某一老师信息
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	public void findTeacher(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		int tid = Integer.valueOf(request.getParameter("tid"));
+		System.out.println(tid);
+		TeacherService ts = new TeacherServiceImpl();
+		Teacher teacher = ts.findTeacherByTid(tid);
+		request.setAttribute("teacher", teacher);
+		request.getRequestDispatcher("/archives/teacherRevice.jsp").forward(request, response);
+	}
+	
+	/**
+	 * 修改老师的信息
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void updateTeacher(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		int tid = Integer.valueOf(request.getParameter("tid"));
+		int age = Integer.valueOf(request.getParameter("age"));
+		String marry = request.getParameter("marry");
+		String party = request.getParameter("party");
+		String education = request.getParameter("education");
+		String phone = request.getParameter("phone");
+		int mid = Integer.valueOf(request.getParameter("mid"));
+		String desc = request.getParameter("desc");
+		
+		Major major = new Major();
+		major.setMid(mid);
+		Teacher teacher = new Teacher(tid, major, age, party, education, marry, phone, desc);
+		TeacherService ts = new TeacherServiceImpl();
+		int num = ts.updateTeacher(teacher);
+		if(num>0){
+			request.getRequestDispatcher("/archives/teacherDate.jsp").forward(request, response);
+		}else{
+			request.setAttribute("error","修改失败");
+			request.getRequestDispatcher("/archives/teacherRevice.jsp").forward(request, response);
+		}
+	}
+	
+	public void findMyInfo(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		Teacher tea =(Teacher) request.getSession().getAttribute("tea");
+		Integer tid = tea.getTid();
+		TeacherService ts = new TeacherServiceImpl();
+		Teacher teacher = ts.findMyInfoByTid(tid);
+		int mid = teacher.getMajor().getMid();
+		String mname = ts.findMnameByMid(mid);
+		teacher.getMajor().setMname(mname);
+		
+		request.setAttribute("teacher", teacher);
+		request.getRequestDispatcher("/archives/teacherInfo2.jsp").forward(request, response);		
+	}
+	
+	/**
+	 * 通过ajax实现联想查询
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	public void thinkFind(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		int search = Integer.valueOf(request.getParameter("search"));
+		String searchText = request.getParameter("searchText");
+		TeacherService ts = new TeacherServiceImpl();
+		List<Object> list = ts.thinkFind(search,searchText);
+		response.getWriter().println(new Gson().toJson(list));
+	}
+}

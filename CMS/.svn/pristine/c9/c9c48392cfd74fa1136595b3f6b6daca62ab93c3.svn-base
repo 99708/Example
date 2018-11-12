@@ -1,0 +1,5 @@
+package com.bjsxt.vo;
+
+public class ScorePerson {
+
+}

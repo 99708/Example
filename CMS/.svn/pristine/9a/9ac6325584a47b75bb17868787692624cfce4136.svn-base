@@ -1,0 +1,89 @@
+package com.bjsxt.service.impl;
+
+import java.util.List;
+
+import com.bjsxt.dao.TeacherDao;
+import com.bjsxt.dao.impl.TeacherDaoImpl;
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Subject;
+import com.bjsxt.pojo.Teacher;
+import com.bjsxt.pojo.TeacherPage;
+import com.bjsxt.service.TeacherService;
+
+public class TeacherServiceImpl implements TeacherService{
+
+	TeacherDao td = new TeacherDaoImpl();
+	
+	/**
+	 * 获取TeacherList
+	 * 功能 : 遍历科目(任课科目下拉框)
+	 */
+	@Override
+	public List<Subject> findTeacherSub() {
+		return td.teacherSubList();
+	}
+	
+
+	/**
+	 * 查找所有的major信息
+	 */
+	@Override
+	public List<Major> findMajor() {
+		return td.getMajor();
+	}
+
+	/**
+	 * 添加老师信息
+	 */
+	@Override
+	public int addTeacher(Teacher teacher) {
+		return td.addTeacher(teacher);
+	}
+	
+	/**
+	 * 按条件分页查询教师信息
+	 */
+	@Override
+	public TeacherPage findTeachers(int search, String searchText, int num,
+			int pageSize) {
+		//将查询页码转换为起始查询行号
+		int pageStart = num*pageSize-pageSize;
+		//获取总的数据量
+		int count = td.getCount(search,searchText);
+		//获取总的分页数量
+		int pages = (int) Math.ceil(count*1.0/pageSize);
+		//获取分页数据
+		List<Teacher> ls= td.getTeachers(search,searchText,pageStart,pageSize);
+//		for(Student s:ls){
+//			String cname = td.getCnameByCid(s.getClasses().getCid());
+//			s.getClasses().setCname(cname);
+//		}
+		//创建Page对象封装分页查询相关的所有数据，便于响应。
+		TeacherPage sp=new TeacherPage(num, pageSize, ls, pages, count);
+		return sp;
+	}
+	public TeacherPage findTeacherBySTH(String sname , int tid , String hiredate , int num , int pageSize) {
+		
+		//将查询页码转换为起始查询行号
+			int pageStart = num*pageSize-pageSize;
+			
+		//获取总的数据量
+			int count = td.teacherCountBySTH(sname, tid, hiredate);
+			
+		//获取总的分页数量
+			int pages=(int) Math.ceil(count*1.0/pageSize);
+			
+		//获取分页数据
+			List<Teacher> ls= td.teacherSubJectsBySTH(sname, tid, hiredate, pageStart, pageSize);
+			
+		//创建Page对象封装分页查询相关的所有数据，便于响应。
+			TeacherPage tp=new TeacherPage();
+			tp.setNum(num);
+			tp.setPageSize(pageSize);
+			tp.setTs(ls);
+			tp.setPages(pages);
+			tp.setCount(count);
+			
+		return tp;
+	}
+}

@@ -1,0 +1,40 @@
+package com.bjsxt.pojo;
+
+import java.io.Serializable;
+/**
+ * 科目信息实体类
+ * @author QiaoZH
+ *
+ */
+public class Subject implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	private String subid;//科目编号
+	private String subname;//科目名称
+	
+	public Subject(String subid, String subname) {
+		super();
+		this.subid = subid;
+		this.subname = subname;
+	}
+	public Subject() {
+		super();
+	}
+	public String getSubid() {
+		return subid;
+	}
+	public void setSubid(String subid) {
+		this.subid = subid;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
+	@Override
+	public String toString() {
+		return "Subject [subid=" + subid + ", subname=" + subname + "]";
+	}
+	
+}

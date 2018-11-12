@@ -1,0 +1,117 @@
+package com.bjsxt.service.impl;
+
+import java.util.List;
+
+import com.bjsxt.dao.StudentDao;
+import com.bjsxt.dao.impl.StudentDaoImpl;
+import com.bjsxt.pojo.Classes;
+import com.bjsxt.pojo.Major;
+import com.bjsxt.pojo.Student;
+import com.bjsxt.pojo.StudentPage;
+import com.bjsxt.service.StudentService;
+
+public class StudentServiceImpl implements StudentService{
+	
+	private StudentDao studentDao = new StudentDaoImpl();
+	
+	/**
+	 * 查询所有班级信息
+	 */
+	@Override
+	public List<Classes> findAllClasses() {
+		return studentDao.getAllClasses();
+	}
+	
+	/**
+	 * 根据mid查询major信息
+	 */
+	@Override
+	public Major findMajorByMid(int mid) {
+		return studentDao.getMajorByMid(mid);
+	}
+
+	/**
+	 * 根据sid查询学生信息
+	 */
+	@Override
+	public Student findMyInfoBySid(int sid) {
+		return studentDao.getMyInfoBySid(sid);
+	}
+
+	/**
+	 * 根据cid查mid
+	 */
+	@Override
+	public int findMidByCid(int cid) {
+		return studentDao.getMidByCid(cid);
+	}
+
+	/**
+	 * 根据cid查cname
+	 */
+	@Override
+	public String findCnameByCid(int cid) {
+		return studentDao.getCnameByCid(cid);
+	}
+	
+	/**
+	 * 添加学生信息
+	 */
+	@Override
+	public int addStudent(Student student) {
+		return studentDao.addStudent(student);
+	}
+	
+	/**
+	 * 根据学生id班级id进行分页查询
+	 */
+	@Override
+	public StudentPage findStudents(String sid, String cid, int num,
+			int pageSize) {
+		//将查询页码转换为起始查询行号
+		int pageStart=num*pageSize-pageSize;
+		//获取总的数据量
+		int count=studentDao.getCount(sid,cid);
+		//获取总的分页数量
+		int pages=(int) Math.ceil(count*1.0/pageSize);
+		//获取分页数据
+		List<Student> ls= studentDao.getStudents(sid,cid,pageStart,pageSize);
+		for(Student s:ls){
+			String cname = studentDao.getCnameByCid(s.getClasses().getCid());
+			s.getClasses().setCname(cname);
+		}
+		//创建Page对象封装分页查询相关的所有数据，便于响应。
+		StudentPage sp=new StudentPage(num, pageSize, ls, pages, count);
+		return sp;
+	}
+
+	/**
+	 * 根据sid查询学生信息
+	 */
+	@Override
+	public Student findStudentBySid(int sid) {
+		Student student = studentDao.getMyInfoBySid(sid);
+		Integer cid = student.getClasses().getCid();
+		student.getClasses().setCname(studentDao.getCnameByCid(cid));
+		Integer mid = student.getMajor().getMid();
+		student.setMajor(studentDao.getMajorByMid(mid));		
+		return student;
+	}
+
+	/**
+	 * 修改学生信息
+	 */
+	@Override
+	public int updateStudent(Student student) {
+		return studentDao.updateStudent(student);
+	}
+
+	/**
+	 * 根据cid查找年级
+	 */
+	@Override
+	public int findGcodeByCid(int cid) {
+		return studentDao.getGcodeByCid(cid);
+	}
+
+}
