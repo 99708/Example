@@ -1,0 +1,40 @@
+package com.bjsxt.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.bjsxt.mapper.UserMapper;
+import com.bjsxt.pojo.User;
+import com.bjsxt.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Resource
+	private UserMapper userMapper;
+
+	@Override
+	public int insUser(User u) {
+		
+		return userMapper.insUser(u);
+	}
+
+	@Override
+	public List<User> selUser(User u) {
+	
+		return userMapper.selUser(u);
+	}
+
+	@Override
+	public User selUserByUidPwd(int uid, String pwd) {
+		
+		return userMapper.selUserByUidPwd(uid, pwd);
+	}
+
+	
+	
+	
+}

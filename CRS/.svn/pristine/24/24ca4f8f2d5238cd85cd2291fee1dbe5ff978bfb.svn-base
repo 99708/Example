@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.bjsxt.mapper.RentalMapper">
+ 
+    <!--根据多重条件分页查找出租单  -->
+    	<resultMap type="com.bjsxt.pojo.Rental" id="rm">
+    		<id property="rentid" column="rentid"/>
+    		<result property="payable" column="payable"/>
+    		<result property="deposit" column="deposit"/>
+    		<result property="priced" column="priced"/>
+    		<result property="begindate" column="begindate"/>
+    		<result property="dateable" column="dateable"/>
+    		<result property="returndate" column="returndate"/>
+    		<result property="status" column="status"/>
+    		<result property="idcard" column="idcard"/>
+    		<result property="carid" column="carid"/>
+    		<result property="uid" column="uid"/>
+    		<association property="customer" javaType="com.bjsxt.pojo.Customer">
+    			<id property="idcard" column="idcard"/>
+ 				<result property="cname" column="cname"/>
+ 				<result property="sex" column="sex"/>
+ 				<result property="address" column="address"/>
+ 				<result property="phone" column="phone"/>
+ 				<result property="job" column="job"/>
+ 				<result property="pwd" column="pwd"/>
+    		</association>
+    	</resultMap>
+	 	<select id="selRentalBySomeCondition" resultMap="rm">
+	 		select * from rental r 
+	 		NATURAL JOIN customer c
+	 		where 1=1
+	 		<if test="#{param1!='' and param1!=null}">
+	  			<bind name="pm1" value="'%'+param1+'%'"/>
+	  			and rentid like #{pm1}
+	  		</if>
+	  		<if test="#{param2!='' and param2!=null}">
+	  			<bind name="pm2" value="'%'+param2+'%'"/>
+	  			and begindate like #{pm2}
+	  		</if> 
+	  		<if test="#{param3!='' and param3!=null}">
+	  			<bind name="pm3" value="'%'+param3+'%'"/>
+	  			and dateable like #{pm3}
+	  		</if>
+	  		<if test="#{param4!='' and param4!=null}">
+	  			<bind name="pm4" value="'%'+param4+'%'"/>
+	  			and returndate like #{pm4}
+	  		</if> 
+	  		<if test="#{param5!='' and param5!=null}">
+	  			<bind name="pm5" value="'%'+param5+'%'"/>
+	  			and idcard like #{pm5}
+	  		</if>
+	  		<if test="#{param6!='' and param6!=null}">
+	  			<bind name="pm6" value="'%'+param6+'%'"/>
+	  			and carid like #{pm6}
+	  		</if> 
+	  		<if test="#{param7!='' and param7!=null}">
+	  			<bind name="pm7" value="'%'+param7+'%'"/>
+	  			and status like #{pm7}
+	  		</if>
+	  		<if test="#{param8!='' and param8!=null}">
+	  			<bind name="pm8" value="'%'+param8+'%'"/>
+	  			and uid like #{pm8}
+	  		</if>
+	  		limit #{param9},#{param10}  
+	 	</select>
+	 	
+ 	<!-- 查询记录总条数 -->
+	 	<select id="selRentalCounts" resultType="Integer">
+	 		select count(*) from rental where 1=1
+	 		<if test="#{param1!='' and param1!=null}">
+	  			<bind name="pm1" value="'%'+param1+'%'"/>
+	  			and rentid like #{pm1}
+	  		</if>
+	  		<if test="#{param2!='' and param2!=null}">
+	  			<bind name="pm2" value="'%'+param2+'%'"/>
+	  			and begindate like #{pm2}
+	  		</if> 
+	  		<if test="#{param3!='' and param3!=null}">
+	  			<bind name="pm3" value="'%'+param3+'%'"/>
+	  			and dateable like #{pm3}
+	  		</if>
+	  		<if test="#{param4!='' and param4!=null}">
+	  			<bind name="pm4" value="'%'+param4+'%'"/>
+	  			and returndate like #{pm4}
+	  		</if> 
+	  		<if test="#{param5!='' and param5!=null}">
+	  			<bind name="pm5" value="'%'+param5+'%'"/>
+	  			and idcard like #{pm5}
+	  		</if>
+	  		<if test="#{param6!='' and param6!=null}">
+	  			<bind name="pm6" value="'%'+param6+'%'"/>
+	  			and carid like #{pm6}
+	  		</if> 
+	  		<if test="#{param7!='' and param7!=null}">
+	  			<bind name="pm7" value="'%'+param7+'%'"/>
+	  			and status like #{pm7}
+	  		</if>
+	  		<if test="#{param8!='' and param8!=null}">
+	  			<bind name="pm8" value="'%'+param8+'%'"/>
+	  			and uid like #{pm8}
+	  		</if>
+	 	</select>
+ </mapper>

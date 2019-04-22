@@ -1,0 +1,47 @@
+package com.bjsxt.controller;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.bjsxt.pojo.User;
+import com.bjsxt.service.UserService;
+
+@Controller
+public class UserController {
+	
+	@Resource
+	private UserService userServiceImpl;
+	
+	
+	@RequestMapping("jsp/{file}/{uri}")
+	public String  getJsp(@PathVariable("file")String file,@PathVariable("uri")String uri){
+		return file+"/"+uri;
+	}
+	
+	@RequestMapping("login")
+	public String login(int uid,String pwd,String code,HttpServletRequest request){
+		System.out.println(uid+"--"+pwd+"--"+code);
+		HttpSession session = request.getSession();
+		String rand = (String) session.getAttribute("rand");
+		if(rand.equalsIgnoreCase(code)){
+			User user = userServiceImpl.selUserByUidPwd(uid, pwd);
+			if(user==null){
+				request.setAttribute("userError", "账号或密码错误");
+				return "forward:/login.jsp";
+			}else{
+				session.setAttribute("user", user);
+				return "redirect:/index.jsp";
+			}
+		}else{
+			request.setAttribute("codeError", "验证码错误");
+			return "forward:/login.jsp";
+		}
+		
+		
+	}
+}

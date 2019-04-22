@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="573" key="HistoryDialog.weights.0"/>
+	<item value="0" key="CommitDialog.location.y"/>
+	<item value="90" key="CommitDialog.location.x"/>
+	<item value="225" key="HistoryTableProvider.HistoryDialog.注释"/>
+	<item value="234" key="HistoryDialog.weights.2"/>
+	<item value="91" key="HistoryTableProvider.HistoryDialog.修订"/>
+	<item value="2" key="ResourceSelectionTree.mode"/>
+	<item value="181" key="HistoryDialog.weights.1"/>
+	<item value="500" key="CommitDialog.weights.0"/>
+	<item value="500" key="CommitDialog.weights.1"/>
+	<item value="80" key="HistoryDialog.location.x"/>
+	<item value="19" key="UpdateDialogWithConflictHandling.location.y"/>
+	<item value="650" key="UpdateDialogWithConflictHandling.size.y"/>
+	<item value="8" key="HistoryDialog.location.y"/>
+	<item value="728" key="CommitDialog.size.y"/>
+	<item value="525" key="UpdateDialogWithConflictHandling.size.x"/>
+	<item value="1186" key="CommitDialog.size.x"/>
+	<item value="139" key="HistoryTableProvider.HistoryDialog.作者"/>
+	<item value="553" key="UpdateDialogWithConflictHandling.location.x"/>
+	<item value="1210" key="HistoryDialog.size.x"/>
+	<item value="690" key="HistoryDialog.size.y"/>
+	<item value="155" key="HistoryTableProvider.HistoryDialog.日期"/>
+	<section name="CommitWizard">
+		<item value="500" key="VWeight2"/>
+		<item value="500" key="VWeight1"/>
+		<item value="false" key="ShowCompare"/>
+	</section>
+</section>

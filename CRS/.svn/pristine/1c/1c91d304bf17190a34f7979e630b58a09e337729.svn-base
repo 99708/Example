@@ -1,0 +1,17 @@
+package com.bjsxt.mapper;
+
+import org.apache.ibatis.annotations.Select;
+
+import com.bjsxt.pojo.User;
+
+public interface UserMapper {
+
+	/**
+	 * 用户登录时校验账号密码
+	 * @param uid
+	 * @param pwd
+	 * @return
+	 */
+	@Select("select * from user where uid=#{0} and pwd=#{1}")
+	public User selUserByUidPwd(int uid,String pwd);
+}

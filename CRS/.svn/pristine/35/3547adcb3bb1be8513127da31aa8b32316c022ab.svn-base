@@ -1,0 +1,15 @@
+package com.bjsxt.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.bjsxt.mapper.CheckedMapper;
+import com.bjsxt.service.CheckedService;
+
+@Service
+public class CheckedServiceImpl implements CheckedService{
+
+	@Resource
+	private CheckedMapper checkedMapper;
+}

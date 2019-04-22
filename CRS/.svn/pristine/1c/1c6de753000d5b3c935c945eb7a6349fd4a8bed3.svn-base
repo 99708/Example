@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjsxt.mapper.StatisMapper">
+	<!-- 动态拼接查询当月应还车辆 -->
+	<select id="selCarReturn" resultType="com.bjsxt.pojo.Rental">
+		select * from rental where dateable &gt;= date_add(curdate(),interval -day(curdate())+1 day) 
+		and dateable &lt;= LAST_DAY(curdate()) 
+		<if test="param1 != '' and param1 != null">
+			and Date(begindate) = #{param1}
+		</if>
+		<if test="param2 != '' and param2 != null">
+			and Date(dateable) = #{param2}
+		</if>
+		<if test="param3 != '' and param3 != null">
+			and uid = #{param3}
+		</if>
+		limit #{param4}, #{param5}
+	</select>
+	
+	<!-- 动态拼接查询当月应还车辆总数 -->
+	<select id="selCountCarReturn" resultType="int">
+		select count(*) from rental where dateable &gt;= date_add(curdate(),interval -day(curdate())+1 day) 
+		and dateable &lt;= LAST_DAY(curdate())
+		<if test="param1 != '' and param1 != null ">
+			and Date(begindate) = #{param1}
+		</if>
+		<if test="param2 != '' and param2 != null ">
+			and Date(dateable) = #{param2}
+		</if>
+		<if test="param3 != '' and param3 != null ">
+			and uid = #{param3}
+		</if>
+	</select>
+	
+	<!-- 统计最受欢迎的车型   -->
+	<select id="selCarTypeCount" resultType="com.bjsxt.vo.CarTypeVO">
+		select count(*) carCount, c.type from car c
+		inner join rental r
+		on c.carid = r.carid
+		group by c.carid, c.type
+	</select>
+	
+	<!-- 统计租期 -->
+	<select id="selReturnTime" resultType="com.bjsxt.vo.ReturnTimeVO">
+		select timestampdiff(day,begindate,returndate) dayNum, count(*) rate from rental 
+		where `status` = '未出租' group by daynum;
+	</select>
+</mapper>

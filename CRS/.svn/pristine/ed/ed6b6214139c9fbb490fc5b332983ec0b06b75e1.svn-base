@@ -1,0 +1,24 @@
+package com.bjsxt.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.bjsxt.mapper.CarOperMapper;
+import com.bjsxt.pojo.Customer;
+import com.bjsxt.service.CarOperService;
+
+@Service
+public class CarOperServiceImpl implements CarOperService{
+	
+	//声明carOper的Mapper属性
+	@Resource
+	private CarOperMapper carOperMapper;
+
+	//根据身份证号检测客户是否存在
+	@Override
+	public Customer selectCustomerByIdcardServie(String idcard) {
+		return carOperMapper.selectCustomerByIdcardMapper(idcard);
+	}
+	
+}
