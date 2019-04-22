@@ -1,0 +1,9 @@
+com\xyq\ego\manager\controller\ManagerContentCategoryController.class
+com\xyq\ego\manager\controller\PageController.class
+com\xyq\ego\manager\controller\UploadController.class
+com\xyq\ego\manager\controller\ManagerContentController.class
+com\xyq\ego\manager\controller\ManagerItemController.class
+com\xyq\ego\manager\controller\ManagerItemParamItemController.class
+com\xyq\ego\manager\controller\ManagerItemParamController.class
+com\xyq\ego\manager\controller\ManagerItemCatController.class
+com\xyq\ego\manager\controller\ManagerItemDescController.class

@@ -1,0 +1,6 @@
+com\xyq\ego\search\service\SearchItemParamService.class
+com\xyq\ego\search\service\impl\ItemServiceImpl.class
+com\xyq\ego\search\service\SearchItemDescService.class
+com\xyq\ego\search\service\ItemService.class
+com\xyq\ego\search\service\impl\SearchItemParamServiceImpl.class
+com\xyq\ego\search\service\impl\SearchItemDescServiceImpl.class

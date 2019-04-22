@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ego-item-web:war">
+    <output-path>$PROJECT_DIR$/ego-item/ego-item-web/target</output-path>
+    <root id="archive" name="ego-item-web.war">
+      <element id="artifact" artifact-name="ego-item-web:war exploded" />
+    </root>
+  </artifact>
+</component>

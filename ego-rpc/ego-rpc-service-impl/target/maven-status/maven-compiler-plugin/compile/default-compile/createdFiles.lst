@@ -1,0 +1,9 @@
+com\xyq\ego\rpc\service\impl\TbItemCatServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbItemParamItemServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbOrderServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbItemDescServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbUserServiceImpl.class
+com\xyq\main\Test.class
+com\xyq\ego\rpc\service\impl\TbContentServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbContentCategroyServiceImpl.class
+com\xyq\ego\rpc\service\impl\TbItemServiceImpl.class

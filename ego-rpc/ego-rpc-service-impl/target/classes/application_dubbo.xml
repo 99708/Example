@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--  给本次发布的dubbo服务起名字，不能消费者一样 -->
+    <dubbo:application name="ego-rpc-provider"></dubbo:application>
+
+    <!-- 指定注册中心地址 -->
+    <dubbo:registry protocol="zookeeper"
+                    address="192.168.220.103:2181, 192.168.220.103:2182, 192.168.220.103:2183"></dubbo:registry>
+
+    <!-- 指定dubbo服务的访问协议和端口好 -->
+    <dubbo:protocol name="dubbo" port="20880" />
+
+    <!-- 发布具体的dubbo服务，指定服务的接口和实现类的对象 -->
+    <!-- 商品处理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbItemService" ref="tbItemServiceImpl"></dubbo:service>
+    <!-- 商品类名处理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbItemCatService" ref="tbItemCatServiceImpl"></dubbo:service>
+    <!-- 商品描述处理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbItemDescService" ref="tbItemDescServiceImpl"></dubbo:service>
+    <!-- 商品规格参数模板管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbItemParamService" ref="tbItemParamServiceImpl"></dubbo:service>
+    <!-- 商品规格参数模板内容管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbItemParamItemService" ref="tbItemParamItemServiceImpl"></dubbo:service>
+    <!-- 网站内容分类管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbContentCategoryService" ref="tbContentCategroyServiceImpl"></dubbo:service>
+    <!-- 网站内容管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbContentService" ref="tbContentServiceImpl"></dubbo:service>
+    <!-- 用户登录和注册管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbUserService" ref="tbUserServiceImpl"></dubbo:service>
+    <!-- 订单管理 -->
+    <dubbo:service interface="com.xyq.ego.rpc.service.TbOrderService" ref="tbOrderServiceImpl"></dubbo:service>
+
+</beans>

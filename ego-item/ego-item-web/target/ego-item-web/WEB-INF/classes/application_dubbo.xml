@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 进行dubbo服务的的获取 -->
+
+    <!--  给本次获取的dubbo服务起名字，不能服务提供者一样 -->
+    <dubbo:application name="ego-item-consumer"></dubbo:application>
+
+    <!-- 指定注册中心地址 -->
+    <dubbo:registry protocol="zookeeper"
+                    address="192.168.220.103:2181, 192.168.220.103:2182, 192.168.220.103:2183"></dubbo:registry>
+
+    <dubbo:reference id="tbItemServiceImpl" interface="com.xyq.ego.rpc.service.TbItemService" />
+
+    <!-- 指定dubbo服务的访问协议和端口号 -->
+    <dubbo:protocol name="dubbo" port="20881" />
+
+    <!-- 发布具体的dubbo服务，指定服务的接口和实现类的对象 -->
+    <!-- 商品处理 -->
+    <dubbo:service interface="com.xyq.ego.item.service.CarItemService" ref="carItemServiceImpl"></dubbo:service>
+
+</beans>

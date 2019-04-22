@@ -1,0 +1,16 @@
+com\xyq\ego\manager\service\ManagerItemParamService.class
+com\xyq\ego\manager\service\ManagerContentCategoryServie.class
+com\xyq\ego\manager\service\impl\ManagerContentServiceImpl.class
+com\xyq\ego\manager\service\ManagerItemParamItemService.class
+com\xyq\ego\manager\service\impl\ManagerItemDescServiceImpl.class
+com\xyq\ego\manager\service\impl\ManagerContentCategoryServieImpl.class
+com\xyq\ego\manager\service\ManagerItemCatService.class
+com\xyq\ego\manager\service\UploadService.class
+com\xyq\ego\manager\service\impl\UploadServiceImpl.class
+com\xyq\ego\manager\service\ManagerContentService.class
+com\xyq\ego\manager\service\ManagerTbItemService.class
+com\xyq\ego\manager\service\impl\ManagerItemCatServiceImpl.class
+com\xyq\ego\manager\service\ManagerItemDescService.class
+com\xyq\ego\manager\service\impl\ManagerTbItemServiceImpl.class
+com\xyq\ego\manager\service\impl\ManagerItemParamServiceImpl.class
+com\xyq\ego\manager\service\impl\ManagerItemParamItemServiceImpl.class
