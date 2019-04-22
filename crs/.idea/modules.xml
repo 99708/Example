@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/crs.iml" filepath="$PROJECT_DIR$/crs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crs-mapper/crs-mapper.iml" filepath="$PROJECT_DIR$/crs-mapper/crs-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crs-pojo/crs-pojo.iml" filepath="$PROJECT_DIR$/crs-pojo/crs-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crs-service/crs-service.iml" filepath="$PROJECT_DIR$/crs-service/crs-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crs-web/crs-web.iml" filepath="$PROJECT_DIR$/crs-web/crs-web.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,8 @@
+com\xyq\mapper\RentalMapper.class
+com\xyq\mapper\CustomersMapper.class
+com\xyq\mapper\RoleMapper.class
+com\xyq\mapper\UserMapper.class
+com\xyq\mapper\CarMapper.class
+com\xyq\mapper\CarOperMapper.class
+com\xyq\mapper\CheckedMapper.class
+com\xyq\mapper\StatisMapper.class

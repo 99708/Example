@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyq.mapper.RoleMapper">
+
+	<!-- 添加角色 -->
+	<insert id="insRole">
+		insert into role values(null ,#{role.rname},#{role.rdesc})
+	</insert>
+
+	<!-- 查询所有角色 -->
+	<select id="selRoles" resultType="com.xyq.entity.Role" >
+		<!-- 多条件分页查询 -->
+		select * from role
+		<where>
+			<if test="role.rname != null and role.rname != '' ">
+				<bind name="roleName" value="'%' + role.rname + '%'" />
+				and rname like #{roleName}
+			</if>
+		</where>
+		limit #{pageNum} , #{pageSize}
+	</select>
+	
+	<!-- 根据条件统计角色总数量 -->
+		<select id="selRoleCount" resultType="int" parameterType="com.xyq.entity.Role">
+		select count(*) from role
+		<where>
+			<if test="rname != null and rname != '' ">
+				<bind name="roleName" value="'%' + rname + '%'" />
+				and rname like #{roleName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据角色名称查询角色信息 -->
+	<select id="selRole" resultType="com.xyq.entity.Role">
+		select * from role
+		<where>
+			<if test="roleName != null and roleName != '' ">
+				and rname = #{roleName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据角色名称修改角色信息 -->
+	<update id="upRole" parameterType="com.xyq.entity.Role">
+		update role
+		<set>
+			<if test="rname != null and rname != '' ">
+				rname = #{rname} ,
+			</if>
+			<if test="rdesc != null and rdesc != '' ">
+				rdesc = #{rdesc},
+			</if>
+		</set>
+		where rname = #{rname}
+	</update>
+
+	<!-- 根据角色名称删除角色信息 -->
+	<delete id="delRole" >
+		delete from role where rid = #{rid}
+	</delete>
+
+	<!--查询所有权限信息-->
+	<select id="selMenuAll" resultType="com.xyq.entity.Menu">
+		select * from menu;
+	</select>
+
+	<!--根据角色id查询该角色拥有的菜单-->
+	<select id="selROleMenu" resultType="com.xyq.entity.Menu">
+		select * from menu m
+		inner join role_menu rm
+		on m.mid = rm.mid
+		where rm.rid = #{param1};
+	</select>
+	
+	<!--根据角色id删除该角色的所有权限-->
+	<delete id="delPermissionByRId">
+		delete from role_menu where rid = #{rid};
+	</delete>
+
+	<!--根据角色id插入该角色的所有权限-->
+	<insert id="insPermissionByRId">
+		insert into role_menu (rid, mid) values
+		<foreach collection="array" item="item" separator="," index="index">
+			( #{rid}, #{item})
+		</foreach>
+
+	</insert>
+
+    <!--根据角色id查询角色信息-->
+    <select id="selRoleByRId" resultType="com.xyq.entity.Role">
+        select * from role where rid = #{rid}
+    </select>
+</mapper>

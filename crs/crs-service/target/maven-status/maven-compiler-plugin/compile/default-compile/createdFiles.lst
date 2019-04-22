@@ -1,0 +1,16 @@
+com\xyq\service\impl\UserServiceImpl.class
+com\xyq\service\StatisService.class
+com\xyq\service\CheckedService.class
+com\xyq\service\impl\CustomersServiceImpl.class
+com\xyq\service\UserService.class
+com\xyq\service\CarService.class
+com\xyq\service\CustomersService.class
+com\xyq\service\impl\RoleServiceImpl.class
+com\xyq\service\RentalService.class
+com\xyq\service\impl\CarOperServiceImpl.class
+com\xyq\service\impl\RentalServiceImpl.class
+com\xyq\service\impl\CheckedServiceImpl.class
+com\xyq\service\RoleService.class
+com\xyq\service\impl\CarServiceImpl.class
+com\xyq\service\impl\StatisServiceImpl.class
+com\xyq\service\CarOperService.class

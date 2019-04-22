@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.xyq.mapper.CustomersMapper">
+		<!-- 添加客户 -->
+		<insert id="insCus">
+			insert into customer values(#{idcard},#{cname},#{sex},#{address},#{phone},#{job},#{pwd})
+		</insert>
+		<!-- 分页查询客户 -->
+		<select id="selCus" resultType="com.xyq.entity.Customer">
+			select * from customer
+				<where>
+					<if test="c.idcard!='' and c.idcard !=null">
+						<bind name="idcard" value="'%'+c.idcard+'%'"/>
+					     and idcard like #{idcard}
+					</if>
+					<if test="c.cname!=''and c.cname!=null">
+						<bind name="cname" value="'%'+c.cname+'%'"/>
+					     and cname like #{cname}
+					</if>
+					<if test="c.phone!=''and c.phone!=null">
+						<bind name="phone" value="'%'+c.phone+'%'"/>
+					     and phone like #{phone}
+					</if>
+				</where>
+				limit #{pageStart}, #{pageSize}
+		</select>
+		<!-- 查询总行数 -->
+		<select id="selCount" resultType="int">
+			select count(*) from customer
+				<where>
+					<if test="c.idcard!='' and c.idcard !=null">
+						<bind name="idcard" value="'%'+c.idcard+'%'"/>
+					     and idcard like #{idcard}
+					</if>
+					<if test="c.cname!=''and c.cname!=null">
+						<bind name="cname" value="'%'+c.cname+'%'"/>
+					     and cname like #{cname}
+					</if>
+					<if test="c.phone!=''and c.phone!=null">
+						<bind name="phone" value="'%'+c.phone+'%'"/>
+					     and phone like #{phone}
+					</if>
+				</where>
+		</select>
+		<!-- 根据idcard查询客户信息 -->
+		<select id="selOneCus" resultType="com.xyq.entity.Customer">
+			select * from customer where idcard=#{0}
+		</select>
+		<!-- 修改客户信息 -->
+		<update id="upCus">
+			update customer set pwd=#{pwd}
+			     <if test="#{cname!='' and cname!=null}">
+			     	,cname=#{cname}
+			     </if>
+			     <if test="#{address!='' and address!=null}">
+			     	,address=#{address}
+			     </if>
+			     <if test="#{job!='' and job!=null}">
+			     	,job=#{job}
+			     </if>
+			     <if test="#{phone!='' and phone!=null}">
+			     	,phone=#{phone}
+			     </if>
+			     <if test="#{sex!='' and sex!=null}">
+			     	,sex=#{sex}
+			     </if>
+			     where idcard=#{idcard}
+		</update>
+		<!-- 根据idcard删除客户信息 -->
+		<delete id="delCus">
+			delete from customer where idcard=#{0}
+		</delete>
+		<!-- 根据idcard和pwd修改客户密码 -->
+		<update id="upCusPwd">
+			update customer set pwd=#{2} where idcard=#{0} and pwd=#{1}
+		</update>
+		<!-- 校验用户 -->
+		<select id="selCusByIdcard" resultType="com.xyq.entity.Customer">
+			select * from customer where idcard=#{0}
+		</select>
+	</mapper>
+ 

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="crs-web:war">
+    <output-path>$PROJECT_DIR$/crs-web/target</output-path>
+    <root id="archive" name="crs-web.war">
+      <element id="artifact" artifact-name="crs-web:war exploded" />
+    </root>
+  </artifact>
+</component>
