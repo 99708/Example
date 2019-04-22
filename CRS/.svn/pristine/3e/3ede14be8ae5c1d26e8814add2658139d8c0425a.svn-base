@@ -1,0 +1,93 @@
+package com.bjsxt.controller;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.bjsxt.pojo.Car;
+import com.bjsxt.pojo.Customer;
+import com.bjsxt.pojo.Rental;
+import com.bjsxt.pojo.RentalPage;
+import com.bjsxt.pojo.User;
+import com.bjsxt.pojo.VagueRental;
+import com.bjsxt.service.RentalService;
+
+@Controller
+public class RentalController {
+
+	@Resource
+	private RentalService rentalServiceImpl;
+	
+	/**
+	 * 按条件分页查询出租单信息
+	 * @param rentid
+	 * @param begindate
+	 * @param dateable
+	 * @param returndate
+	 * @param idcard
+	 * @param carid
+	 * @param status
+	 * @param uid
+	 * @param pageNum
+	 * @param pageSize
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("selRental")
+	public String selRental(String rentid, String begindate, String dateable, String returndate,
+			String idcard, String carid, String status, String uid, int pageNum, int pageSize, HttpServletRequest request){
+		RentalPage rentalPage = rentalServiceImpl.selRentalBySomeCondition(rentid, begindate, dateable, returndate, idcard, carid, status, uid, pageNum, pageSize);
+		VagueRental vagueRental = new VagueRental(rentid, begindate, dateable, returndate, idcard, carid, status, uid);
+		
+		User user = (User) request.getSession().getAttribute("user");
+		int uid2 = user.getUid();
+		rentalServiceImpl.insertSlfInfo(uid2, "查询出租单信息", "成功");
+		request.getSession().setAttribute("rentalPage", rentalPage);
+		request.getSession().setAttribute("vagueRental", vagueRental);
+		return "operatorManager/viewRenttables";
+	}
+	
+	/**
+	 * 根据出租单号查找出租信息
+	 * @param rentid
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("selRentalByRentid")
+	public String selRentalByRentid(int rentid,String idcard,int carid,HttpServletRequest request){
+		Rental rental = rentalServiceImpl.selRentalByRentid(rentid);
+		Customer customer = rentalServiceImpl.selCustomerByIdcard(idcard);
+		Car car = rentalServiceImpl.selCarByCarid(carid);
+		
+		User user = (User) request.getSession().getAttribute("user");
+		int uid2 = user.getUid();
+		rentalServiceImpl.insertSlfInfo(uid2, "查询编号为"+rentid+"出租单详细信息", "成功");
+		
+		request.setAttribute("rental", rental);
+		request.setAttribute("customer", customer);
+		request.setAttribute("car", car);
+		return "operatorManager/updateRenttable";
+	}
+	
+	/**
+	 * 修改车辆状态信息以及出租单信息
+	 * @param rental
+	 * @return
+	 */
+	@RequestMapping("updateAllStatus")
+	public String updateAllStatus(Rental rental,int rentid,String idcard,int carid,HttpServletRequest request){
+		int num = rentalServiceImpl.updateAllStatus(carid, rental);
+		User user = (User) request.getSession().getAttribute("user");
+		int uid2 = user.getUid();
+		if(num==2){
+			rentalServiceImpl.insertSlfInfo(uid2, "修改编号为"+rentid+"的出租单详细信息", "成功");
+			request.setAttribute("info", "修改成功");
+		}else{
+			rentalServiceImpl.insertSlfInfo(uid2, "修改编号为"+rentid+"的出租单详细信息", "成功");
+			request.setAttribute("info", "修改失败");
+		}	
+		return "forward:/selRentalByRentid";
+	}
+}

@@ -1,0 +1,26 @@
+package com.bjsxt.service;
+
+import java.util.List;
+
+import com.bjsxt.pojo.User;
+
+
+
+/**
+ * 管理员业务逻辑接口
+ * @author Qiao
+ *
+ */
+public interface UserService {
+	//添加用户
+	int insUser(User u);
+	//根据用户条件查询用户信息
+	List<User> selUser(User u);
+	/**
+	 * 用户登录时校验账号密码
+	 * @param uid
+	 * @param pwd
+	 * @return
+	 */
+	public User selUserByUidPwd(int uid,String pwd);
+}

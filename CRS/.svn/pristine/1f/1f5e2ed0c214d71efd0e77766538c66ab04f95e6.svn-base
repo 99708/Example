@@ -1,0 +1,11 @@
+package com.bjsxt.mapper;
+
+/**
+ * 检查单mapper接口层
+ * @author Administrator
+ *
+ */
+
+public interface CheckedMapper {
+
+}

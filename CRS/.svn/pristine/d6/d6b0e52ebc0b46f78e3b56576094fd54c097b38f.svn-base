@@ -1,0 +1,16 @@
+package com.bjsxt.mapper;
+
+import org.apache.ibatis.annotations.Select;
+
+import com.bjsxt.pojo.Customer;
+
+/**
+ * 汽车租还操作
+ * @author HaoziDada
+ */
+public interface CarOperMapper {
+
+	@Select("select * from customer where idcard = #{param0}")
+	Customer selectCustomerByIdcardMapper(String idcard); 
+	
+}

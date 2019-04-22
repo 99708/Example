@@ -1,0 +1,92 @@
+package com.bjsxt.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.bjsxt.mapper.RentalMapper;
+import com.bjsxt.pojo.Car;
+import com.bjsxt.pojo.Customer;
+import com.bjsxt.pojo.Rental;
+import com.bjsxt.pojo.RentalPage;
+import com.bjsxt.service.RentalService;
+
+@Service
+public class RentalServiceImpl implements RentalService{
+	
+	@Resource
+	private RentalMapper rentalMapper;
+
+	/**
+	 * 按条件分页查询出租单信息
+	 */
+	@Override
+	public RentalPage selRentalBySomeCondition(String rentid, String begindata, String dateable, String returndate,
+			String idcard, String carid, String status, String uid, int pageNum, int pageSize) {
+		
+		int pageStart=pageNum*pageSize-pageSize;
+		RentalPage page = new RentalPage();
+		page.setPageStart(pageStart);
+		page.setPageSize(pageSize);
+		List<Rental> rentalList = rentalMapper.selRentalBySomeCondition(rentid, begindata, dateable, returndate, idcard, carid, status, uid, pageStart, pageSize);
+		int count = rentalMapper.selRentalCounts(rentid, begindata, dateable, returndate, idcard, carid, status, uid);
+		int pages=(int) Math.ceil(count*1.0/pageSize);
+		page.setCount(count);
+		page.setRentalList(rentalList);
+		page.setPages(pages);
+		page.setPageNum(pageNum);
+		
+		return page;
+	}
+
+	/**
+	 * 根据出租单号查找出租信息
+	 */
+	@Override
+	public Rental selRentalByRentid(int rentid) {
+		return rentalMapper.selRetalByRentid(rentid);
+	}
+
+	/**
+	 * 根据身份证号查找客户信息
+	 */
+	@Override
+	public Customer selCustomerByIdcard(String idcard) {
+		return rentalMapper.selCustomerByIdcard(idcard);
+	}
+
+	/**
+	 * 根据车编号查找车辆信息
+	 * @param idcard
+	 * @return
+	 */
+	@Override
+	public Car selCarByCarid(int carid) {
+		return rentalMapper.selCarByCarid(carid);
+	}
+
+	/**
+	 * 修改车辆状态信息以及出租单信息
+	 * @param rental
+	 * @return
+	 */
+	@Override
+	public int updateAllStatus(int carid, Rental rental) {
+		int num = rentalMapper.updateCarStatus(carid, rental);
+		num+= rentalMapper.updateRental(rental);
+		return num;
+	}
+
+	/**
+	 * 添加操作日志
+	 */
+	@Override
+	public int insertSlfInfo(int uid, String oper,String success) {
+		return rentalMapper.insertSlfInfo(uid, oper, success);
+	}
+	
+	
+
+}

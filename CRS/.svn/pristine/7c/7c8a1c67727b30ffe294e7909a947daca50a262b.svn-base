@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bjsxt.mapper.UserMapper">
+  	<!-- 添加用户 -->
+  		<insert id="insUser"  >
+  			insert into user values(#{uid},#{uname},#{pwd},#{idcard},#{sex},#{address},#{phone},#{position},#{rid})
+  		</insert>
+  	<!-- 查找用户 -->
+  		<select id="selUser" resultType="com.bjsxt.pojo.User">
+			select * from user 
+			<where>
+					<if test="uid='' and uid!=null">
+					     and uid=#{uid}
+					</if>
+					<if test="uname=''and uname!=null">
+					     and uname=#{uname}
+					</if>
+					<if test="pwd=''and pwd!=null">
+					     and pwd=#{pwd}
+					</if>
+					<if test="idcard=''and idcard!=null">
+					     and idcard=#{idcard}
+					</if>
+					<if test="sex=''and sex!=null">
+					     and sex=#{sex}
+					</if>
+					<if test="address=''and address!=null">
+					     and address=#{address}
+					</if>
+					<if test="phone=''and phone!=null">
+					     and phone=#{phone}
+					</if>
+					<if test="position=''and position!=null">
+					     and position=#{position}
+					</if>
+					<if test="rid=''and rid!=null">
+					     and rid=#{rid}
+					</if>
+			</where>  		
+  		</select>	
+  </mapper>

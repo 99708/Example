@@ -1,0 +1,18 @@
+package com.bjsxt.service;
+
+import com.bjsxt.pojo.Customer;
+
+/**
+ * 汽车租还操作
+ * @author HaoziDada
+ */
+public interface CarOperService {
+	
+	/**
+	 * 根据身份证校验客户
+	 * @param idcard
+	 * @return
+	 */
+	Customer selectCustomerByIdcardServie(String idcard);
+	
+}

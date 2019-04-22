@@ -1,0 +1,88 @@
+package com.bjsxt.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import com.bjsxt.pojo.Car;
+import com.bjsxt.pojo.Customer;
+import com.bjsxt.pojo.Rental;
+
+/**
+ * 出租单管理mapper层
+ * @author Qiao
+ *
+ */
+public interface RentalMapper {
+	
+	/**
+	 * 根据多重条件分页查找出租单
+	 * @param rentid
+	 * @param begindata
+	 * @param dateable
+	 * @param returndate
+	 * @param idcard
+	 * @param carid
+	 * @param status
+	 * @param uid
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Rental> selRentalBySomeCondition(String rentid,String begindate,String dateable,String returndate,String idcard,String carid,String status,String uid,int pageNum,int pageSize);
+	
+	/**
+	 * 查询记录总条数
+	 * @param rentid
+	 * @param begindata
+	 * @param dateable
+	 * @param returndate
+	 * @param idcard
+	 * @param carid
+	 * @param status
+	 * @param uid
+	 * @return
+	 */
+	public int selRentalCounts(String rentid,String begindate,String dateable,String returndate,String idcard,String carid,String status,String uid);
+	
+	/**
+	 * 根据出租单号查找出租信息
+	 * @param rentid
+	 * @return
+	 */
+	@Select("select * from rental where rentid = #{0}")
+	public Rental selRetalByRentid(int rentid);
+	
+	/**
+	 * 根据身份证号查找客户信息
+	 * @param idcard
+	 * @return
+	 */
+	@Select("select * from customer where idcard = #{0} ")
+	public Customer selCustomerByIdcard(String idcard);
+	
+	/**
+	 * 根据车编号查找车辆信息
+	 * @param idcard
+	 * @return
+	 */
+	@Select("select * from car where carid = #{0}")
+ 	public Car selCarByCarid(int carid);
+	
+	/**
+	 * 修改出租单信息
+	 * @param rental
+	 * @return
+	 */
+	@Update("update rental set priced=#{priced} , begindate=#{begindate} , dateable=#{dateable} , returndate=#{returndate} , status=#{status} where rentid=#{rentid}")
+	public int updateRental(Rental rental);
+	
+	/**
+	 * 修改车辆状态信息
+	 * @param rental
+	 * @return
+	 */
+	@Update("update car set status=#{param2.status} where carid=#{param1}")
+	public int updateCarStatus(int carid,Rental rental);
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjsxt.mapper.CarMapper">
+
+	<!-- 添加汽车信息 -->
+	<insert id="insertCarMapper">
+		insert into car values(#{carid} , #{type}
+		,#{color},#{price},#{rentprice},#{deposit},#{status} ,#{desc},#{img})
+	</insert>
+
+	<!-- 查询所有汽车 -->
+	<select id="selectAllCarMapper" resultType="com.bjsxt.pojo.Car">
+		<!-- 多条件分页查询 -->
+		select * from car
+		<bind name="cid" value="carid" />
+		<bind name="cartype" value="'%' + type + '%'" />
+		<bind name="carColor" value="'%' + color + '%'" />
+		<bind name="carPrice" value="price" />
+		<bind name="carRentPrice" value="rentprice" />
+		<bind name="carDeposit" value="deposit" />
+		<bind name="carStatus" value="status" />
+		<where>
+			<if test="carid != '' and carid != null and carid != 0">
+				and carid = #{cid}
+			</if>
+			<if test="type != '' and type != null">
+				and type like #{cartype}
+			</if>
+			<if test="color != '' and color != null">
+				and color like #{carColor}
+			</if>
+			<if test="price != '' and price != null and price != 0.0">
+				and price &lt;= #{carPrice}
+			</if>
+			<if test="rentprice != '' and rentprice != null and rentprice != 0.0">
+				and rentprice &lt;= #{carRentPrice}
+			</if>
+			<if test="deposit != '' and deposit != null and deposit != 0.0">
+				and deposit &lt;= #{carDeposit}
+			</if>
+			<if test="status != '' and status != null">
+				and status = #{carStatus}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据汽车ID查询汽车信息 -->
+	<select id="selectOneCarByCaridMapper" resultType="com.bjsxt.pojo.Car">
+		select * from car
+		<where>
+			<if test="#{carid} != null">
+				and carid = #{carid}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据汽车ID修改全部信息 -->
+	<update id="updateOneCarByCaridMapper">
+		update car set carid = #{carid} , type = #{type} ,
+		color = #{color}, price = #{price} , rentprice = #{rentprice} ,
+		deposit = #{deposit} , `status` = #{status},
+		desc = #{desc} , img = #{img}
+	</update>
+
+
+
+
+</mapper>

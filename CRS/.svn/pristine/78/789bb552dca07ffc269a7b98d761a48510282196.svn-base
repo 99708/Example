@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bjsxt.mapper.UserMapper">
+  	<!-- 添加用户 -->
+  		<insert id="insUser"  >
+  			insert into user values(#{uid},#{uname},#{pwd},#{idcard},#{sex},#{address},#{phone},#{position},#{rid})
+  		</insert>
+  	<!-- 查找用户 -->
+  		<select id="selUser" resultType="com.bjsxt.pojo.User">
+			select * from user 
+			<where>
+					<if test="u.uid!='' and u.uid !=null">
+						<bind name="uid" value="'%'+u.uid+'%'"/>
+					     and uid like #{uid}
+					</if>
+					<if test="u.uname!=''and u.uname!=null">
+						<bind name="uname" value="'%'+u.uname+'%'"/>
+					     and uname like #{uname}
+					</if>
+					<if test="u.pwd!=''and u.pwd!=null">
+						<bind name="pwd" value="'%'+u.pwd+'%'"/>
+					     and pwd like #{pwd}
+					</if>
+					<if test="u.idcard!=''and u.idcard!=null">
+						<bind name="idcard" value="'%'+u.idcard+'%'"/>
+					     and idcard like #{idcard}
+					</if>
+					<if test="u.sex!=''and u.sex!=null">
+						<bind name="sex" value="'%'+u.sex+'%'"/>
+					     and sex like #{sex}
+					</if>
+					<if test="u.address!=''and u.address!=null">
+						<bind name="address" value="'%'+u.address+'%'"/>
+					     and address like #{address}
+					</if>
+					<if test="u.phone!=''and u.phone!=null">
+						<bind name="phone" value="'%'+u.phone+'%'"/>
+					     and phone like #{phone}
+					</if>
+					<if test="u.position!=''and u.position!=null">
+						<bind name="position" value="'%'+u.position+'%'"/>
+					     and position like #{position}
+					</if>
+					<if test="u.rid!=''and u.rid!=null">
+						<bind name="rid" value="'%'+u.rid+'%'"/>
+					     and rid like #{rid}
+					</if>
+			</where>
+			limit #{pageStart},2 		
+  		</select>	
+  		<!-- 查询总行数 -->
+  		<select id="selCount" resultType="int">
+  			select count(*) from user
+  			<where>
+					<if test="uid!='' and uid !=null">
+						<bind name="uid" value="'%'+uid+'%'"/>
+					     and uid like #{uid}
+					</if>
+					<if test="uname!=''and uname!=null">
+						<bind name="uname" value="'%'+uname+'%'"/>
+					     and uname like #{uname}
+					</if>
+					<if test="pwd!=''and pwd!=null">
+						<bind name="pwd" value="'%'+pwd+'%'"/>
+					     and pwd like #{pwd}
+					</if>
+					<if test="idcard!=''and idcard!=null">
+						<bind name="idcard" value="'%'+idcard+'%'"/>
+					     and idcard like #{idcard}
+					</if>
+					<if test="sex!=''and sex!=null">
+						<bind name="sex" value="'%'+sex+'%'"/>
+					     and sex like #{sex}
+					</if>
+					<if test="address!=''and address!=null">
+						<bind name="address" value="'%'+address+'%'"/>
+					     and address like #{address}
+					</if>
+					<if test="phone!=''and phone!=null">
+						<bind name="phone" value="'%'+phone+'%'"/>
+					     and phone like #{phone}
+					</if>
+					<if test="position!=''and position!=null">
+						<bind name="position" value="'%'+position+'%'"/>
+					     and position like #{position}
+					</if>
+					<if test="rid!=''and rid!=null">
+						<bind name="rid" value="'%'+rid+'%'"/>
+					     and rid like #{rid}
+					</if>
+			</where>
+  		</select>
+  		<!-- 根据uid查询用户 -->
+  		<select id="selOneUser" resultType="com.bjsxt.pojo.User">
+  			select  * from user where uid=#{0}
+  		</select>
+  		<!-- 修改用户信息 -->
+  		<update id="upUser">
+  			update user set  pwd=#{pwd}
+  					<if test="#{uname}!=''and #{uname}!=null">
+  						,uname=#{uname}
+  					</if>
+  					<if test="{idcard}!=''and #{idcard}!=null">
+  						,idcard=#{idcard}
+  					</if>
+  					<if test="#{sex}!=''and #{sex}!=null">
+  						,sex=#{sex}
+  					</if>
+  					<if test="#{address}!=''and #{address}!=null">
+  						,address=#{address}
+  					</if>
+  					<if test="#{position}!=''and #{position}!=null">
+  						,position=#{position}
+  					</if>
+  					<if test="#{rid}!='' and #{rid}!=null">
+  						,rid=#{rid}
+  					</if>
+  					where uid=#{uid}
+  		</update>
+  		<!-- 根据uid和pwd修改用户密码 -->
+  		<update id="upPwd">
+  			update user set pwd=#{2} where uid=#{0} and pwd=#{1} 
+  		</update>
+  		<!-- 根据uid删除用户 -->
+  		<delete id="delUser">
+  			delete   from user where uid=#{0}
+  		</delete>
+  		<!-- 查询用户是否重复 -->
+  		<select id="selUid" resultType="com.bjsxt.pojo.User">
+  			select * from user where uid=#{0}
+  		</select>
+  		
+  		<!--根据多重条件分页查找登录信息  -->
+  			<resultMap type="com.bjsxt.pojo.Login" id="rm">
+  				<id property="lid" column="lid"/>
+  				<result property="ip" column="ip"/>
+  				<result property="time" column="time"/>
+  				<result property="uid" column=""/>
+  				<association property="user" javaType="com.bjsxt.pojo.User">
+  					<id property="uid" column="uid"/>
+  					<result property="uname" column="uname"/>
+  				</association>
+  			</resultMap>
+  			<select id="selLoginInfo" resultMap="rm">
+  				select * from log l
+  				natural join user u
+  				where 1=1
+  				<if test="{param1!='' and param1!=null}">
+		  			<bind name="pm1" value="'%'+param1+'%'"/>
+		  			and uname like #{pm1}
+		  		</if>
+		  		<if test="{param2!='' and param2!=null}">
+		  			<bind name="pm2" value="'%'+param2+'%'"/>
+		  			and ip like #{pm2}
+		  		</if> 
+		  		<if test="{param3!='' and param3!=null}">
+		  			<bind name="pm3" value="'%'+param3+'%'"/>
+		  			and time like #{pm3}
+		  		</if>
+		  		limit #{param4},#{param5}
+  			</select>
+  		<!--根据多重条件分页查找登录信息条数  -->
+  			<select id="selLoginCounts" resultType="Integer" >
+  				select count(*) from log l
+  				natural join user u
+  				where 1=1
+  				<if test="#{param1!='' and param1!=null}">
+		  			<bind name="pm1" value="'%'+param1+'%'"/>
+		  			and uname like #{pm1}
+		  		</if>
+		  		<if test="#{param2!='' and param2!=null}">
+		  			<bind name="pm2" value="'%'+param2+'%'"/>
+		  			and ip like #{pm2}
+		  		</if> 
+		  		<if test="#{param3!='' and param3!=null}">
+		  			<bind name="pm3" value="'%'+param3+'%'"/>
+		  			and time like #{pm3}
+		  		</if>
+  			</select>
+  </mapper>

@@ -1,0 +1,219 @@
+package com.bjsxt.controller;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.bjsxt.pojo.Rental;
+import com.bjsxt.pojo.RentalPage;
+import com.bjsxt.service.StatisService;
+import com.bjsxt.vo.CarTypeVO;
+import com.bjsxt.vo.IncomeVO;
+import com.bjsxt.vo.ReturnTimeVO;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Controller
+public class StatisController {
+	
+	@Resource
+	private StatisService statisServiceImpl;
+	
+	/**
+	 * 查询当月的应还车辆
+	 * @param begindate
+	 * @param dateable
+	 * @param uid
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selCarReturn")
+	public RentalPage selCarReturn(String begindate, String dateable, Integer uid, int pageNum, int pageSize){
+		RentalPage rentalPage = statisServiceImpl.selCarReturn(begindate, dateable, uid, pageNum, pageSize);
+		return rentalPage;
+	}
+	
+	/**
+	 * POI导出Excel
+	 * @param req
+	 * @param resp
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	@RequestMapping("exportExcel")
+	public void exportExcel(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
+
+		String rentalList = req.getParameter("rentalList");
+		ObjectMapper mapper = new ObjectMapper();
+        List<Rental> rentals = mapper.readValue(rentalList,new TypeReference<List<Rental>>() { });
+		// 创建一个Excel文件
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        // 创建一个工作表
+        HSSFSheet sheet = workbook.createSheet("当月应还车辆记录表");
+        /**
+         *  可以合并行和列
+         */
+        CellRangeAddress region = new CellRangeAddress(0, // first row
+                0, // last row
+                0, // first column
+                7 // last column
+        );
+        sheet.addMergedRegion(region);
+        
+        /**
+         * 
+         * 创建 表的行  第一行 
+         */
+        HSSFRow hssfRow = sheet.createRow(0);
+        
+        
+        // 设置单元格格式居中
+        HSSFCellStyle cellStyle = workbook.createCellStyle();
+    	cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+    	
+    	/**
+         * 创建单元格  第一个单元格
+         */
+        HSSFCell headCell = hssfRow.createCell(0);
+        /**
+         * 添加内容
+         */
+        headCell.setCellValue("当月应还车辆记录表");
+        headCell.setCellStyle(cellStyle);
+        // 添加表头行
+        hssfRow = sheet.createRow(1);
+        // 添加表头内容
+        headCell = hssfRow.createCell(0);
+        headCell.setCellValue("序号");
+        headCell.setCellStyle(cellStyle);
+        
+        headCell = hssfRow.createCell(1);
+        headCell.setCellValue("出租单编号");
+        headCell.setCellStyle(cellStyle);
+
+        headCell = hssfRow.createCell(2);
+        headCell.setCellValue("起租日期");
+        headCell.setCellStyle(cellStyle);
+
+        headCell = hssfRow.createCell(3);
+        headCell.setCellValue("应归还日期");
+        headCell.setCellStyle(cellStyle);
+        
+        headCell = hssfRow.createCell(4);
+        headCell.setCellValue("客户身份证号码");
+        headCell.setCellStyle(cellStyle);
+        
+        headCell = hssfRow.createCell(5);
+        headCell.setCellValue("租用车车号");
+        headCell.setCellStyle(cellStyle);
+        
+        headCell = hssfRow.createCell(6);
+        headCell.setCellValue("出租单状态");
+        headCell.setCellStyle(cellStyle);
+        
+        headCell = hssfRow.createCell(7);
+        headCell.setCellValue("服务人员编号");
+        headCell.setCellStyle(cellStyle);
+        
+
+        // 添加数据内容
+        for (int i = 0; i < rentals.size(); i++) {
+            hssfRow = sheet.createRow((int) i + 2);
+            Rental rental = rentals.get(i);
+
+            // 创建单元格，并设置值
+            HSSFCell cell = hssfRow.createCell(0);
+            cell.setCellValue(i+1);
+            cell.setCellStyle(cellStyle);
+
+            cell = hssfRow.createCell(1);
+            cell.setCellValue(rental.getRentid());
+            cell.setCellStyle(cellStyle);
+
+            cell = hssfRow.createCell(2);
+            cell.setCellValue(rental.getBegindate());
+            cell.setCellStyle(cellStyle);
+            
+            cell = hssfRow.createCell(3);
+            cell.setCellValue(rental.getDateable());
+            cell.setCellStyle(cellStyle);
+            
+            cell = hssfRow.createCell(4);
+            cell.setCellValue(rental.getIdcard());
+            cell.setCellStyle(cellStyle);
+            
+            cell = hssfRow.createCell(5);
+            cell.setCellValue(rental.getCarid());
+            cell.setCellStyle(cellStyle);
+            
+            cell = hssfRow.createCell(6);
+            cell.setCellValue(rental.getStatus());
+            cell.setCellStyle(cellStyle);
+            
+            cell = hssfRow.createCell(7);
+            cell.setCellValue(rental.getUid());
+            cell.setCellStyle(cellStyle);
+        }
+
+        // 保存Excel文件
+        try {
+        	OutputStream outputStream = new FileOutputStream("D:/当月应还车辆记录表.xls");
+            workbook.write(outputStream);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //响应结果
+        resp.getWriter().println("1");
+	}
+	
+	/**
+	 * 统计最受欢迎的车型
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selCarTypeCount")
+	public List<CarTypeVO> selCarTypeCount(){
+		return statisServiceImpl.selCarTypeCount();
+	}
+	
+	/**
+	 * 统计租期
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selReturnTime")
+	public List<ReturnTimeVO> selReturnTime(){
+		return statisServiceImpl.selReturnTime();
+	}
+	
+	 /**
+	 * 统计收入
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selIncomeVO")
+	public List<IncomeVO> selIncomeVO(){
+		return statisServiceImpl.selIncomeVO();
+	}
+}
