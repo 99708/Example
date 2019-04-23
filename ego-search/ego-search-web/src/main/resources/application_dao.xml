@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+    <context:component-scan base-package="com.xyq.ego.search.dao.impl"></context:component-scan>
+
+    <!-- 实例化solr的API对象 -->
+    <bean id="server" class="org.apache.solr.client.solrj.impl.CloudSolrServer">
+        <constructor-arg name="zkHost" value="192.168.220.103:2181,192.168.220.103:2182,192.168.220.103:2183"></constructor-arg>
+        <property name="defaultCollection" value="solrCore2"></property>
+    </bean>
+</beans>

@@ -179,6 +179,11 @@
 		  			and time like #{pm3}
 		  		</if>
   			</select>
+<<<<<<< HEAD
+=======
+  			
+  			<!-- RBAC权限控制 -->
+>>>>>>> dbfbe8f2be70a0e50f16430bfff02d7b339aefa4
   			<select id="selRBAC" resultType="com.bjsxt.pojo.Menu">
   				select * from menu m
 				inner join role_menu rm

@@ -1,0 +1,11 @@
+com\xyq\ego\rpc\mapper\TbUserMapper.class
+com\xyq\ego\rpc\mapper\TbItemParamMapper.class
+com\xyq\ego\rpc\mapper\TbItemDescMapper.class
+com\xyq\ego\rpc\mapper\TbContentCategoryMapper.class
+com\xyq\ego\rpc\mapper\TbContentMapper.class
+com\xyq\ego\rpc\mapper\TbItemMapper.class
+com\xyq\ego\rpc\mapper\TbOrderMapper.class
+com\xyq\ego\rpc\mapper\TbItemCatMapper.class
+com\xyq\ego\rpc\mapper\TbOrderItemMapper.class
+com\xyq\ego\rpc\mapper\TbItemParamItemMapper.class
+com\xyq\ego\rpc\mapper\TbOrderShippingMapper.class

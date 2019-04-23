@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ego-commons" />
+        <module name="ego-item-dao" />
+        <module name="ego-item-service" />
+        <module name="ego-item-web" />
+        <module name="ego-manager-service" />
+        <module name="ego-manager-web" />
+        <module name="ego-order-service" />
+        <module name="ego-order-web" />
+        <module name="ego-portal-service" />
+        <module name="ego-portal-web" />
+        <module name="ego-rpc-domain" />
+        <module name="ego-rpc-mapper" />
+        <module name="ego-rpc-service" />
+        <module name="ego-rpc-service-impl" />
+        <module name="ego-search-dao" />
+        <module name="ego-search-domain" />
+        <module name="ego-search-service" />
+        <module name="ego-search-web" />
+        <module name="ego-sso-service" />
+        <module name="ego-sso-web" />
+        <module name="mybatisGenerator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ego" target="1.7" />
+      <module name="ego-common" target="1.7" />
+      <module name="ego-commons" target="1.7" />
+      <module name="ego-item" target="1.7" />
+      <module name="ego-item-dao" target="1.7" />
+      <module name="ego-item-service" target="1.7" />
+      <module name="ego-item-web" target="1.7" />
+      <module name="ego-manager" target="1.7" />
+      <module name="ego-manager-service" target="1.7" />
+      <module name="ego-manager-web" target="1.7" />
+      <module name="ego-order" target="1.7" />
+      <module name="ego-order-service" target="1.7" />
+      <module name="ego-order-web" target="1.7" />
+      <module name="ego-portal" target="1.7" />
+      <module name="ego-portal-service" target="1.7" />
+      <module name="ego-portal-web" target="1.7" />
+      <module name="ego-rpc" target="1.7" />
+      <module name="ego-rpc-domain" target="1.7" />
+      <module name="ego-rpc-mapper" target="1.7" />
+      <module name="ego-rpc-service" target="1.7" />
+      <module name="ego-rpc-service-impl" target="1.7" />
+      <module name="ego-search" target="1.7" />
+      <module name="ego-search-dao" target="1.7" />
+      <module name="ego-search-domain" target="1.7" />
+      <module name="ego-search-service" target="1.7" />
+      <module name="ego-search-web" target="1.7" />
+      <module name="ego-sso" target="1.7" />
+      <module name="ego-sso-service" target="1.7" />
+      <module name="ego-sso-web" target="1.7" />
+      <module name="MybatisGenerator" target="1.7" />
+      <module name="mybatisGenerator" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

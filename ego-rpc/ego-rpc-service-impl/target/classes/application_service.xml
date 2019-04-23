@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+
+        ">
+    <!-- 扫描业务对象 -->
+    <context:component-scan base-package="com.xyq.ego.rpc.service.impl"></context:component-scan>
+    <!-- 实例化事务管理器对象 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- 声明事务切面 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="save*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="delete*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="update*" propagation="REQUIRED" isolation="DEFAULT"/>
+            <tx:method name="load*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"/>
+            <tx:method name="get*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 进行aop的配置 -->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.xyq.ego.rpc.service.impl.*.*(..))" id="pc"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+
+    </aop:config>
+</beans>

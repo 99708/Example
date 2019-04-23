@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 进行dubbo服务的的获取 -->
+
+    <!--  给本次获取的dubbo服务起名字，不能服务提供者一样 -->
+    <dubbo:application name="ego-portal-consumer"></dubbo:application>
+
+    <!-- 指定注册中心地址 -->
+    <dubbo:registry protocol="zookeeper"
+                    address="192.168.220.103:2181, 192.168.220.103:2182, 192.168.220.103:2183"></dubbo:registry>
+
+    <dubbo:reference id="tbItemCatServiceImpl" interface="com.xyq.ego.rpc.service.TbItemCatService" />
+    <dubbo:reference id="tbContentServiceProxy" interface="com.xyq.ego.rpc.service.TbContentService" />
+    <!-- 获得远程服务的代理对象 -->
+    <!--<dubbo:reference id="tbItemServiceImpl" interface="com.xyq.ego.rpc.service.TbItemService" />-->
+    <!--<dubbo:reference id="tbItemCatServiceImpl" interface="com.xyq.ego.rpc.service.TbItemCatService" />-->
+    <!--<dubbo:reference id="tbItemDescServiceProxy" interface="com.xyq.ego.rpc.service.TbItemDescService" />-->
+    <!--<dubbo:reference id="tbItemParamServiceProxy" interface="com.xyq.ego.rpc.service.TbItemParamService" />-->
+    <!--<dubbo:reference id="tbItemParamItemServiceProxy" interface="com.xyq.ego.rpc.service.TbItemParamItemService" />-->
+    <!--<dubbo:reference id="tbContentCategoryServiceProxy" interface="com.xyq.ego.rpc.service.TbContentCategoryService" />-->
+    <!--<dubbo:reference id="tbContentServiceProxy" interface="com.xyq.ego.rpc.service.TbContentService" />-->
+
+</beans>

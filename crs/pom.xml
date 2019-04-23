@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.xyq.crs</groupId>
+  <artifactId>crs</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>crs-pojo</module>
+    <module>crs-service</module>
+    <module>crs-mapper</module>
+    <module>crs-web</module>
+  </modules>
+
+  <!--配置版本管理  -->
+  <properties>
+    <servlet.version>4.0.1</servlet.version>
+    <jsp.version>2.2.1</jsp.version>
+    <jstl.vsersion>1.2</jstl.vsersion>
+    <mybatis.version>3.2.7</mybatis.version>
+    <log4j.version>1.2.17</log4j.version>
+    <log4j-core.version>2.8.2</log4j-core.version>
+    <cglib.version>2.2.2</cglib.version>
+    <mybatis-spring.version>1.2.2</mybatis-spring.version>
+    <webmvc.vsersion>4.1.6.RELEASE</webmvc.vsersion>
+    <tx.version>4.1.6.RELEASE</tx.version>
+    <spring-aop.vsersion>4.1.6.RELEASE</spring-aop.vsersion>
+    <spring-jdbc.vsersion>4.1.6.RELEASE</spring-jdbc.vsersion>
+    <spring-context.version>4.1.6.RELEASE</spring-context.version>
+    <aspectjweaver.version>1.8.6</aspectjweaver.version>
+    <mysql-connector-java.version>5.1.3</mysql-connector-java.version>
+    <jackson-databind.vsersion>2.6.6</jackson-databind.vsersion>
+    <commons-io.version>2.4</commons-io.version>
+    <commons-fileupload.version>1.3.1</commons-fileupload.version>
+    <poi.version>3.9</poi.version>
+    <junit.version>4.11</junit.version>
+    <crs-pojo.version>1.0-SNAPSHOT</crs-pojo.version>
+    <crs-mapper.version>1.0-SNAPSHOT</crs-mapper.version>
+    <crs-service.version>1.0-SNAPSHOT</crs-service.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!--配置项目依赖  -->
+  <dependencyManagement>
+    <dependencies>
+      <!--配置web相关依赖  -->
+      <!--配置servlet依赖 -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${servlet.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <!--配置jsp依赖  -->
+      <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>javax.servlet.jsp-api</artifactId>
+        <version>${jsp.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <!--配置jstl依赖  -->
+      <dependency>
+        <groupId>javax.servlet.jsp.jstl</groupId>
+        <artifactId>jstl</artifactId>
+        <version>${jstl.vsersion}</version>
+      </dependency>
+      <!--配置SSM依赖  -->
+      <!--配置mybatis依赖  -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <!--配置log4j  -->
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j-core.version}</version>
+      </dependency>
+      <!--配置cglib  -->
+      <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib</artifactId>
+        <version>${cglib.version}</version>
+      </dependency>
+      <!--配置Spring和mybatis整合依赖  -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis-spring.version}</version>
+      </dependency>
+      <!--配置Spring依赖  -->
+      <!--配置mvc依赖  -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${webmvc.vsersion}</version>
+      </dependency>
+      <!--配置IOC -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring-context.version}</version>
+      </dependency>
+
+      <!--配置AOP相关  -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring-aop.vsersion}</version>
+      </dependency>
+      <!--配置Tx相关  -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${tx.version}</version>
+      </dependency>
+      <!--配置Spring的jdbc依赖  -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring-jdbc.vsersion}</version>
+      </dependency>
+      <!--配置aspectjweaver的依赖  -->
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspectjweaver.version}</version>
+      </dependency>
+      <!--配置mysql依赖  -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java.version}</version>
+      </dependency>
+      <!--配置jackson依赖  -->
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson-databind.vsersion}</version>
+      </dependency>
+      <!--配置上传下载依赖  -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons-fileupload.version}</version>
+      </dependency>
+      <!--配置poi-->
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>${poi.version}</version>
+      </dependency>
+      <!--配置其他依赖  -->
+      <!--配置junit  -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <!--配置pojo依赖  -->
+      <dependency>
+        <groupId>com.xyq.crs</groupId>
+        <artifactId>crs-pojo</artifactId>
+        <version>${crs-pojo.version}</version>
+      </dependency>
+      <!--配置mapper依赖  -->
+      <dependency>
+        <groupId>com.xyq.crs</groupId>
+        <artifactId>crs-mapper</artifactId>
+        <version>${crs-mapper.version}</version>
+      </dependency>
+      <!--配置service依赖  -->
+      <dependency>
+        <groupId>com.xyq.crs</groupId>
+        <artifactId>crs-service</artifactId>
+        <version>${crs-service.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <!--配置插件管理  -->
+  <build>
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+        <!-- 资源文件拷贝插件 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    <pluginManagement>
+      <plugins>
+        <!--配置tomcat插件-->
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <port>8080</port>
+            <path>/crs</path>
+            <uriEncoding>UTF-8</uriEncoding>
+            <useBodyEncodingForURI>true</useBodyEncodingForURI>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

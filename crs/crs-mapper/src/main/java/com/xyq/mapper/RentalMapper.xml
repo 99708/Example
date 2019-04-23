@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.xyq.mapper.RentalMapper">
+ 
+    <!--根据多重条件分页查找出租单  -->
+    	<resultMap type="com.xyq.entity.Rental" id="rm">
+    		<id property="rentid" column="rentid"/>
+    		<result property="payable" column="payable"/>
+    		<result property="deposit" column="deposit"/>
+    		<result property="priced" column="priced"/>
+    		<result property="dateable" column="dateable"/>
+    		<result property="returndate" column="returndate"/>
+    		<result property="idcard" column="idcard"/>
+    		<result property="carid" column="carid"/>
+    		<result property="uid" column="uid"/>
+    		<association property="customer" javaType="com.xyq.entity.Customer">
+    			<id property="idcard" column="idcard"/>
+ 				<result property="cname" column="cname"/>
+    		</association>
+    	</resultMap>
+	 	<select id="selRentalBySomeCondition" resultMap="rm">
+	 		select * from rental r 
+			inner join customer c
+			on r.idcard = c.idcard
+			<where>
+				<if test="rental.rentid != '' and rental.rentid != null ">
+					<bind name="rtId" value="'%'+rental.rentid+'%'"/>
+					and r.rentid like #{rtId}
+				</if>
+				<if test=" customer.cname != '' and customer.cname != null">
+					<bind name="cname" value="'%'+customer.cname+'%'"/>
+					and c.cname like #{cname}
+				</if>
+				<if test="rental.carid != '' and rental.carid != null ">
+					<bind name="carId" value="'%'+rental.carid+'%'"/>
+					and r.carid like #{carId}
+				</if>
+			</where>
+	  		limit #{pageNum},#{pageSize}
+	 	</select>
+	 	
+ 	<!-- 查询记录总条数 -->
+	 	<select id="selRentalCounts" resultType="Integer">
+			select count(*) from rental r
+			inner join customer c
+			on r.idcard = c.idcard
+	 		<where>
+				<if test="rental.rentid != '' and rental.rentid != null ">
+					<bind name="rtId" value="'%'+rental.rentid+'%'"/>
+					and r.rentid like #{rtId}
+				</if>
+				<if test="customer.cname != '' and customer.cname != null ">
+					<bind name="cname" value="'%'+customer.cname+'%'"/>
+					and c.cname like #{cname}
+				</if>
+				<if test="rental.carid != '' and rental.carid != null">
+					<bind name="carId" value="'%'+rental.carid+'%'"/>
+					and r.carid like #{carId}
+				</if>
+			</where>
+
+	 	</select>
+ </mapper>

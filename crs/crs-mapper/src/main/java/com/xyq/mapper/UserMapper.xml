@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.xyq.mapper.UserMapper">
+  	<!-- 添加用户 -->
+  		<insert id="insUser" >
+  			insert into user values(#{uid},#{uname},#{pwd},#{idcard},#{sex},#{address},#{phone},#{rid})
+  		</insert>
+  	<!-- 查找用户 -->
+		<resultMap type="com.xyq.entity.User" id="ur">
+			<id property="uid" column="uid"/>
+			<result property="idcard" column="idcard"/>
+			<result property="uname" column="uname"/>
+			<result property="sex" column="sex"/>
+			<association property="role" javaType="com.xyq.entity.Role">
+				<id property="rid" column="rid"/>
+				<result property="rname" column="rname"/>
+			</association>
+		</resultMap>
+  		<select id="selUser" resultMap="ur">
+			select * from user u
+			inner join role r
+			on u.rid = r.rid
+			<where>
+				<if test="user.uid!='' and user.uid !=null">
+					<bind name="userid" value="'%'+user.uid+'%'"/>
+					and u.uid like #{userid}
+				</if>
+				<if test="user.uname!='' and user.uname!=null">
+					<bind name="username" value="'%'+user.uname+'%'"/>
+					and u.uname like #{username}
+				</if>
+				<if test="role.rname!='' and role.rname!=null">
+					<bind name="rolename" value="'%'+role.rname+'%'"/>
+					and r.rname like #{rolename}
+				</if>
+			</where>
+			limit #{pageStart},#{pageSize}
+  		</select>	
+  		<!-- 查询总行数 -->
+  		<select id="selCount" resultType="int" >
+			select count(*) from user u
+			inner join role r
+			on u.rid = r.rid
+  			<where>
+					<if test="user.uid!='' and user.uid !=null">
+						<bind name="userid" value="'%'+user.uid+'%'"/>
+					     and uid like #{userid}
+					</if>
+					<if test="user.uname!='' and user.uname!=null">
+						<bind name="username" value="'%'+user.uname+'%'"/>
+					     and uname like #{username}
+					</if>
+					<if test="role.rname!='' and role.rname!=null">
+						<bind name="rolename" value="'%'+role.rname+'%'"/>
+					     and r.rname like #{rolename}
+					</if>
+			</where>
+  		</select>
+  		<!-- 根据uid查询用户 -->
+	<resultMap type="com.xyq.entity.User" id="user">
+		<id property="uid" column="uid"/>
+		<result property="idcard" column="idcard"/>
+		<result property="uname" column="uname"/>
+		<result property="sex" column="sex"/>
+		<result property="address" column="address"/>
+		<result property="phone" column="phone"/>
+        <result property="pwd" column="pwd"/>
+		<association property="role" javaType="com.xyq.entity.Role">
+			<id property="rid" column="rid"/>
+			<result property="rname" column="rname"/>
+		</association>
+	</resultMap>
+  		<select id="selOneUser" resultMap="user">
+            select * from user u
+			inner join role r
+			on u.rid = r.rid
+  			where u.uid=#{0}
+  		</select>
+  		<!-- 修改用户信息 -->
+  		<update id="upUser">
+  			update user set  pwd=#{pwd}
+  					<if test="#{uname}!=''and #{uname}!=null">
+  						,uname=#{uname}
+  					</if>
+  					<if test="{idcard}!=''and #{idcard}!=null">
+  						,idcard=#{idcard}
+  					</if>
+  					<if test="#{sex}!=''and #{sex}!=null">
+  						,sex=#{sex}
+  					</if>
+  					<if test="#{address}!=''and #{address}!=null">
+  						,address=#{address}
+  					</if>
+  					<if test="#{rid}!='' and #{rid}!=null">
+  						,rid=#{rid}
+  					</if>
+  					where uid=#{uid}
+  		</update>
+  		<!-- 根据uid和pwd修改用户密码 -->
+  		<update id="upPwd">
+  			update user set pwd=#{2} where uid=#{0} and pwd=#{1} 
+  		</update>
+  		<!-- 根据uid删除用户 -->
+  		<delete id="delUser">
+  			delete  from user where uid=#{0}
+  		</delete>
+  		<!-- 查询用户是否重复 -->
+  		<select id="selUid" resultType="com.xyq.entity.User">
+  			select * from user where uid=#{0}
+  		</select>
+  		
+  		<!--根据多重条件分页查找登录信息  -->
+  			<resultMap type="com.xyq.entity.Login" id="rm">
+  				<id property="lid" column="lid"/>
+  				<result property="ip" column="ip"/>
+  				<result property="time" column="time"/>
+  				<result property="uid" column="uid"/>
+  				<association property="user" javaType="com.xyq.entity.User">
+  					<id property="uid" column="uid"/>
+  					<result property="uname" column="uname"/>
+  				</association>
+  			</resultMap>
+  			<select id="selLoginInfo" resultMap="rm">
+  				select * from log l
+  				inner join user u
+				on l.uid = u.uid
+  				<where>
+					<if test="#{user.uname!='' and user.uname!=null}">
+						<bind name="uname" value="'%'+user.uname+'%'"/>
+						and uname like #{uname}
+					</if>
+					<if test="#{login.ip!='' and login.ip!=null}">
+						<bind name="ip" value="'%'+login.ip+'%'"/>
+						and ip like #{ip}
+					</if>
+					<if test="#{login.time!='' and login.time!=null}">
+						<bind name="time" value="'%'+login.time+'%'"/>
+						and time like #{time}
+					</if>
+				</where>
+		  		limit #{pageNum},#{pageSize}
+  			</select>
+  		<!--根据多重条件分页查找登录信息条数  -->
+  			<select id="selLoginCounts" resultType="Integer" >
+  				select count(*) from log l
+  				inner join user u
+				on l.uid = u.uid
+				<where>
+					<if test="#{user.uname!='' and user.uname!=null}">
+						<bind name="uname" value="'%'+user.uname+'%'"/>
+						and uname like #{uname}
+					</if>
+					<if test="#{login.ip!='' and login.ip!=null}">
+						<bind name="ip" value="'%'+login.ip+'%'"/>
+						and ip like #{ip}
+					</if>
+					<if test="#{login.time!='' and login.time!=null}">
+						<bind name="time" value="'%'+login.time+'%'"/>
+						and time like #{time}
+					</if>
+				</where>
+  			</select>
+  			
+  			<!-- RBAC权限控制 -->
+  			<select id="selRBAC" resultType="com.xyq.entity.Menu">
+  				select * from menu m
+				inner join role_menu rm
+				on m.mid = rm.mid
+				where rm.rid = #{param1} and pid = #{param2};
+  			</select>
+
+  </mapper>

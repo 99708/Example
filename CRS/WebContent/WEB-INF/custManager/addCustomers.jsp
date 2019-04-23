@@ -54,8 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+<<<<<<< HEAD
    <form action="addCustomers" method="post">
   	<input type="hidden" name="method" value="addCustomers"/>
+=======
+   
+>>>>>>> dbfbe8f2be70a0e50f16430bfff02d7b339aefa4
    <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" valign="top" background="images/mail_leftbg.gif"><img src="images/left-top-right.gif" width="17" height="29" /></td>
@@ -76,8 +80,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </tr>
       <tr>
         <td colspan="2" valign="top"><span class="left_bt">
+<<<<<<< HEAD
 <form  action="AddCustomersAction.do" method="post" >
 <input type="hidden" name="method" value="addCustomers">
+=======
+<form action="addCustomers" method="post">
+>>>>>>> dbfbe8f2be70a0e50f16430bfff02d7b339aefa4
   <table class="maintable" width="97%" border="0" cellspacing="0">
     <tr>
       <td width="14%"><div align="center" class="left_txt">身份证</div></td>

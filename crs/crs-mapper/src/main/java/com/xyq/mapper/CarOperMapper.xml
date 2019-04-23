@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyq.mapper.CarOperMapper">
+
+	<!-- 添加汽车租用信息 -->
+	<insert id="insertCarRentMapper">
+		insert into rental values(#{rentid} , #{payable}
+		,#{deposit},#{priced},#{begindate},#{dateable},#{returndate}
+		,#{status},#{idcard},#{carid},#{uid})
+	</insert>
+	
+	<!-- 三条件分页查询SLF信息 -->
+	<select id="selectAllSLFByOUO" resultType="com.xyq.entity.SlfLog">
+		select * from slf
+		<where>
+			<if test="slf.oper != null and slf.oper != '' ">
+				<bind name="operLike" value="'%' + slf.oper + '%'"/>
+				and oper like #{operLike}
+			</if>
+			<if test="slf.uid != null and slf.uid != 0 ">
+				<bind name="uidLike" value="'%' + slf.uid + '%'"/>
+				and uid like #{uidLike}
+			</if>
+			<if test="slf.opertime != null and slf.opertime != '' ">
+				and opertime &lt;= #{slf.opertime}
+			</if>
+		</where>
+		limit #{num} , #{pageSize}
+	</select>
+	
+	<!-- 三条件统计SLF数量 -->
+	<select id="selectCountSLFByThree" resultType="int">
+		select count(*) from slf
+		<where>
+			<if test="slf.oper != null and slf.oper != '' ">
+				<bind name="operLike" value="'%' + slf.oper + '%'"/>
+				and oper like #{operLike}
+			</if>
+			<if test="slf.uid != null and slf.uid != 0 ">
+				<bind name="uidLike" value="'%' + slf.uid + '%'"/>
+				and uid like #{uidLike}
+			</if>
+			<if test="slf.opertime != null and slf.opertime != '' ">
+				and opertime &lt;= #{slf.opertime}
+			</if>
+		</where>
+	</select>
+
+</mapper>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/ego-item/ego-item-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ego-manager/ego-manager-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ego-order/ego-order-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ego-portal/ego-portal-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ego-search/ego-search-web" />
+    <file type="web" url="file://$PROJECT_DIR$/ego-sso/ego-sso-web" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/ego/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisGenerator/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ZooKeeperConfig">
+    <option name="host" value="192.168.220.103" />
+    <option name="port" value="2181" />
+    <option name="charset" value="UTF-8" />
+    <option name="whitePaths" value="" />
+    <option name="enabled" value="true" />
+    <option name="tooltip" value="true" />
+  </component>
+</project>

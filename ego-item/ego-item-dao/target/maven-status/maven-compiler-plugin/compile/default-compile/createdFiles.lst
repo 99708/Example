@@ -1,0 +1,3 @@
+com\xyq\ego\item\entity\CarItem.class
+com\xyq\ego\item\dao\impl\CartItemDaoImpl.class
+com\xyq\ego\item\dao\CarItemDao.class

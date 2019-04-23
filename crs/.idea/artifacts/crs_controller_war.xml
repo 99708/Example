@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="crs-controller:war">
+    <output-path>$PROJECT_DIR$/crs-controller/target</output-path>
+    <root id="archive" name="crs-controller-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="crs-controller:war exploded" />
+    </root>
+  </artifact>
+</component>

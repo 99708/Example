@@ -1,0 +1,8 @@
+com\xyq\ego\rpc\service\TbOrderService.class
+com\xyq\ego\rpc\service\TbItemService.class
+com\xyq\ego\rpc\service\TbItemDescService.class
+com\xyq\ego\rpc\service\TbItemCatService.class
+com\xyq\ego\rpc\service\TbContentCategoryService.class
+com\xyq\ego\rpc\service\TbItemParamItemService.class
+com\xyq\ego\rpc\service\TbContentService.class
+com\xyq\ego\rpc\service\TbUserService.class

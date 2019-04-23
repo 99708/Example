@@ -124,6 +124,13 @@ public class UserServiceImpl implements UserService{
 		page.setPageNum(pageNum);
 		return page;
 	}
+<<<<<<< HEAD
+=======
+	
+	/**
+	 * RBAC权限控制
+	 */
+>>>>>>> dbfbe8f2be70a0e50f16430bfff02d7b339aefa4
 	@Override
 	public List<Menu> selRBAC(int rid, int pid) {
 		List<Menu> mList = userMapper.selRBAC(rid, pid);
@@ -133,6 +140,10 @@ public class UserServiceImpl implements UserService{
 		}
 		return mList;
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> dbfbe8f2be70a0e50f16430bfff02d7b339aefa4
 	@Override
 	public List<RoleVo> selRole(String uname) {
 		return userMapper.selRole(uname);

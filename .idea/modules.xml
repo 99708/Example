@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ego/ego.iml" filepath="$PROJECT_DIR$/ego/ego.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-commons/ego-commons.iml" filepath="$PROJECT_DIR$/ego-commons/ego-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-item/ego-item.iml" filepath="$PROJECT_DIR$/ego-item/ego-item.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-item/ego-item-dao/ego-item-dao.iml" filepath="$PROJECT_DIR$/ego-item/ego-item-dao/ego-item-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-item/ego-item-service/ego-item-service.iml" filepath="$PROJECT_DIR$/ego-item/ego-item-service/ego-item-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-item/ego-item-web/ego-item-web.iml" filepath="$PROJECT_DIR$/ego-item/ego-item-web/ego-item-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-manager/ego-manager.iml" filepath="$PROJECT_DIR$/ego-manager/ego-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-manager/ego-manager-service/ego-manager-service.iml" filepath="$PROJECT_DIR$/ego-manager/ego-manager-service/ego-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-manager/ego-manager-web/ego-manager-web.iml" filepath="$PROJECT_DIR$/ego-manager/ego-manager-web/ego-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-order/ego-order.iml" filepath="$PROJECT_DIR$/ego-order/ego-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-order/ego-order-service/ego-order-service.iml" filepath="$PROJECT_DIR$/ego-order/ego-order-service/ego-order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-order/ego-order-web/ego-order-web.iml" filepath="$PROJECT_DIR$/ego-order/ego-order-web/ego-order-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-portal/ego-portal.iml" filepath="$PROJECT_DIR$/ego-portal/ego-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-portal/ego-portal-service/ego-portal-service.iml" filepath="$PROJECT_DIR$/ego-portal/ego-portal-service/ego-portal-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-portal/ego-portal-web/ego-portal-web.iml" filepath="$PROJECT_DIR$/ego-portal/ego-portal-web/ego-portal-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-rpc/ego-rpc.iml" filepath="$PROJECT_DIR$/ego-rpc/ego-rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-rpc/ego-rpc-domain/ego-rpc-domain.iml" filepath="$PROJECT_DIR$/ego-rpc/ego-rpc-domain/ego-rpc-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-rpc/ego-rpc-mapper/ego-rpc-mapper.iml" filepath="$PROJECT_DIR$/ego-rpc/ego-rpc-mapper/ego-rpc-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-rpc/ego-rpc-service/ego-rpc-service.iml" filepath="$PROJECT_DIR$/ego-rpc/ego-rpc-service/ego-rpc-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-rpc/ego-rpc-service-impl/ego-rpc-service-impl.iml" filepath="$PROJECT_DIR$/ego-rpc/ego-rpc-service-impl/ego-rpc-service-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-search/ego-search.iml" filepath="$PROJECT_DIR$/ego-search/ego-search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-search/ego-search-dao/ego-search-dao.iml" filepath="$PROJECT_DIR$/ego-search/ego-search-dao/ego-search-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-search/ego-search-domain/ego-search-domain.iml" filepath="$PROJECT_DIR$/ego-search/ego-search-domain/ego-search-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-search/ego-search-service/ego-search-service.iml" filepath="$PROJECT_DIR$/ego-search/ego-search-service/ego-search-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-search/ego-search-web/ego-search-web.iml" filepath="$PROJECT_DIR$/ego-search/ego-search-web/ego-search-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-sso/ego-sso.iml" filepath="$PROJECT_DIR$/ego-sso/ego-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-sso/ego-sso-service/ego-sso-service.iml" filepath="$PROJECT_DIR$/ego-sso/ego-sso-service/ego-sso-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-sso/ego-sso-web/ego-sso-web.iml" filepath="$PROJECT_DIR$/ego-sso/ego-sso-web/ego-sso-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatisGenerator/mybatisGenerator.iml" filepath="$PROJECT_DIR$/mybatisGenerator/mybatisGenerator.iml" />
+    </modules>
+  </component>
+</project>
